@@ -54,6 +54,11 @@ class UserController extends Controller
     public function getLogout()
     {
         $this->userService->logout();
-        return view('admin.login');
+        return redirect(route('admin_login'));
+    }
+
+    public function index()
+    {
+        return view('admin.layout.master');
     }
 }

@@ -7,12 +7,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">Môn học
-                        <small>Thêm</small>
+                    <h1 class="page-header">Khóa Học
+                        <small>Sửa</small>
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-7" style="padding-bottom:120px">
+
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -23,28 +24,20 @@
                         </div>
                     @endif
 
-                    @if (session('mess'))
+                    @if (session('message'))
                         <div class="alert alert-success">
-                            {{session('mess')}}
+                            {{session('message')}}
                         </div>
                     @endif
 
-                    <form action="" method="POST">
+                    <form action="{{ route('course_edit', $course->id) }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label>Khoa</label>
-                            <select class="form-control" name="TheLoai">
-                                <option value="Công nghệ thông tin">Công nghệ thông tin</option>
-                                <option value="Điện tử">Điện tử</option>
-                                <option value="Viễn thông">Công nghệ thông tin</option>
-                            </select>
+                            <label>Tên khóa học</label>
+                            <input class="form-control" name="name" placeholder="Nhập tên khóa học" value="{{ $course->name }}" />
                         </div>
-                        <div class="form-group">
-                            <label>Tên môn học</label>
-                            <input class="form-control" name="Ten" placeholder="Nhập tên loại tin" value="{{old('Ten')}}"/>
-                        </div>
-                        <button type="submit" class="btn btn-default">Add</button>
-                        <button type="reset" class="btn btn-default">Reset</button>
+                        <button type="submit" class="btn btn-success">Sửa</button>
+                        <button type="reset" class="btn btn-info">Làm mới</button>
                     </form>
                 </div>
             </div>

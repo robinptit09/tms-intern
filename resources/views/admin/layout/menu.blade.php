@@ -13,16 +13,16 @@
                 <!-- /input-group -->
             </li>
             <li>
-                <a href=""><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                <a href="{{ route('index_admin') }}"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
             <li>
                 <a href=""><i class="fa fa-list fa-fw"></i> User<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="">Danh sách</a>
+                        <a href="aaaa">Danh sách</a>
                     </li>
                     <li>
-                        <a href="">Thêm</a>
+                        <a href="aaaa">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -32,10 +32,10 @@
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="">Danh sách</a>
+                        <a href="{{ route('course_list') }}">Danh sách</a>
                     </li>
                     <li>
-                        <a href="">Thêm</a>
+                        <a href="{{ route('course_add') }}">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -45,10 +45,10 @@
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="">Danh sách</a>
+                        <a href="aaaa">Danh sách</a>
                     </li>
                     <li>
-                        <a href="">Thêm</a>
+                        <a href="aaaa">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -58,10 +58,10 @@
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="">Danh sách</a>
+                        <a href="aaaa">Danh sách</a>
                     </li>
                     <li>
-                        <a href="">Thêm</a>
+                        <a href="aaaa">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
@@ -70,10 +70,10 @@
                 <a href=""><i class="fa fa-users fa-fw"></i> Đề thi<span class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="">Danh sách</a>
+                        <a href="{{ route('exam_list') }}">Danh sách</a>
                     </li>
                     <li>
-                        <a href="">Thêm</a>
+                        <a href="{{ route('exam_add') }}">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

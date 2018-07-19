@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
-class Exam extends BaseModel
+use Illuminate\Database\Eloquent\Model;
+
+class Exam extends Model
 {
     protected $table = 'exams';
 
     protected $fillable = [
         'code',
-        'idCourse'
+        'idCourse',
+        'numberQuestion',
+        'level',
+        'status'
     ];
 
     public function course()

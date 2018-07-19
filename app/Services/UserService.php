@@ -12,6 +12,7 @@ class UserService extends BaseService
         Sentinel::registerAndActivate(array(
             'email'    => 'conan989hd@gmail.com',
             'password' => '123456',
+            'permissions' => ['admin' => true],
             'first_name' => 'Quân',
             'last_name'  => 'Nguyễn',
         ));

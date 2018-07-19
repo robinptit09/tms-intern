@@ -24,7 +24,9 @@ class RepoBindingServiceProvider extends ServiceProvider
     public function register()
     {
         $models = array(
-            'Post'
+            'Post',
+            'Course',
+            'Exam'
         );
 
         foreach ($models as $model) {

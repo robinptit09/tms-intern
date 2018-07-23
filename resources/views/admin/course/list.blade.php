@@ -23,8 +23,8 @@
                     <tr align="center">
                         <th>ID</th>
                         <th>Tên</th>
-                        <th>Delete</th>
                         <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>

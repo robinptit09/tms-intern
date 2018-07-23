@@ -59,5 +59,30 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::post('add', 'Admin\ExamController@postExamAdd')->name('exam_add');
 
         Route::get('delete/{id}', 'Admin\ExamController@getExamDelete')->name('exam_delete');
+
+        Route::get('detail/{id}', 'Admin\ExamController@getExamDetail')->name('exam_detail');
+
+        Route::get('{id}/addQuestion', 'Admin\ExamController@getAddQuestion')->name('exam_addQuestion');
+
+        Route::post('{id}/addQuestion', 'Admin\ExamController@postAddQuestion')->name('exam_addQuestion');
+
+        Route::get('question/{idquestion}/addAnswer', 'Admin\ExamController@getAddAnswer')->name('exam_addAnswer');
+
+        Route::post('question/{idquestion}/addAnswer', 'Admin\ExamController@postAddAnswer')->name('exam_addAnswer');
+
+        Route::get('question/{idquestion}/delete', 'Admin\ExamController@getQuestionDelete')->name('exam_deleteQuestion');
+
+        Route::get('question/{idquestion}/edit', 'Admin\ExamController@getQuestionEdit')->name('exam_editQuestion');
+
+        Route::post('question/{idquestion}/edit', 'Admin\ExamController@postQuestionEdit')->name('exam_editQuestion');
+
+        Route::get('question/{idquestion}/editAnswer', 'Admin\ExamController@getEditAnswer')->name('exam_editAnswer');
+
+        Route::post('question/{idquestion}/editAnswer', 'Admin\ExamController@postEditAnswer')->name('exam_editAnswer');
     });
+
+    Route::any('{query}',
+        function() { return redirect('/'); })
+        ->where('query', '.*')->name('admin');
 });
+

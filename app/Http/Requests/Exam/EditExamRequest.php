@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Exam;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ExamRequest extends FormRequest
+class EditExamRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +26,7 @@ class ExamRequest extends FormRequest
     {
         return [
             'idCourse' => 'required',
-            'code' => 'required|unique:exams,code',
-            'numberQuestion' => 'required|numeric|min:0',
+            'code' => ['required',Rule::unique('exams')->ignore($this->id)] ,
         ];
     }
 
@@ -36,9 +36,6 @@ class ExamRequest extends FormRequest
             'idCourse.required' => 'Chọn khóa học',
             'code.required' => 'Mã đề không được trống',
             'code.unique' => 'Mã đề đã tồn tại',
-            'numberQuestion.required' => 'Số câu hỏi không được để trống',
-            'numberQuestion.numeric' => 'Số câu hỏi phải là số',
-            'numberQuestion.min' => 'Số câu hỏi phải không nhỏ hơn 0',
         ];
     }
 

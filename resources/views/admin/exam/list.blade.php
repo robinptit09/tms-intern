@@ -25,10 +25,11 @@
                         <th>Khóa học</th>
                         <th>Mã đề</th>
                         <th>Số câu hỏi</th>
-                        <th>Độ khó</th>
+                        <th>Mức độ</th>
                         <th>Trạng thái</th>
-                        <th>Delete</th>
                         <th>Edit</th>
+                        <th>Detail</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -40,7 +41,7 @@
                             <td>{{ $count }}</td>
                             <th>{{ $exam->course->name }}</th>
                             <td>{{ $exam->code }}</td>
-                            <td>{{ $exam->numberQuestion }}</td>
+                            <td>{{ $exam->question->count() }}</td>
                             <td>@switch($exam->level)
                                     @case(1)
                                     Dễ
@@ -60,7 +61,8 @@
                                     Private
                                 @endif
                             </td>
-                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{ route('exam_edit', $exam->id) }}">Chi tiết</a></td>
+                            <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{ route('exam_edit', $exam->id) }}">Sửa</a></td>
+                            <td class="center"><i class="fa fa-eye fa-fw"></i> <a href="{{ route('exam_detail', $exam->id) }}">Chi tiết</a></td>
                             <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="return window.confirm('Bạn muốn xóa?');" href="{{ route('exam_delete', $exam->id) }}"> Xóa</a></td>
                         </tr>
                         @php

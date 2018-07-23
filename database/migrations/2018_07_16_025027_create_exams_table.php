@@ -18,7 +18,6 @@ class CreateExamsTable extends Migration
             $table->string('code',191)->unique();
             $table->integer('idCourse')->unsigned();
             $table->foreign('idCourse')->references('id')->on('course')->onDelete('cascade');
-            $table->integer('numberQuestion');
             $table->smallInteger('level');
             $table->boolean('status')->default(false);
             $table->timestamps();

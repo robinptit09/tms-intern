@@ -33,6 +33,7 @@ class LoginRequest extends FormRequest
     {
         return [
             'email.required' => 'Email is required',
+            'email.email' => 'Email format undefined',
             'password.required' => 'Password is required'
         ];
     }

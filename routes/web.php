@@ -80,9 +80,26 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
         Route::post('question/{idquestion}/editAnswer', 'Admin\ExamController@postEditAnswer')->name('exam_editAnswer');
     });
-
-    Route::any('{query}',
-        function() { return redirect('/'); })
-        ->where('query', '.*')->name('admin');
 });
 
+Route::get('/', 'Frontend\UserController@index')->name('index');
+
+Route::get('login', 'Frontend\UserController@getLogin')->name('login');
+
+Route::post('login', 'Frontend\UserController@postLogin')->name('login');
+
+Route::get('register', 'Frontend\UserController@getRegister')->name('register');
+
+Route::post('register', 'Frontend\UserController@postRegister')->name('register');
+
+Route::get('logout', 'Frontend\UserController@getLogout')->name('logout');
+
+Route::group(['middleware' => 'user'], function() {
+
+    Route::get('listCourse/{id}', 'Frontend\UserController@getListExams')->name('listCourse');
+
+    Route::get('exam/{id}', 'Frontend\UserController@getExam')->name('exam');
+
+    Route::post('test', 'Frontend\UserController@test')->name('test');
+
+});

@@ -23,7 +23,8 @@ class ExamService extends BaseService
         OptionRepository $optionRepository,
         AnswerRepository $answerRepository
 
-    ){
+    )
+    {
         $this->examRepository = $examRepository;
         $this->courseRepository = $courseRepository;
         $this->questionRepository = $questionRepository;
@@ -51,9 +52,9 @@ class ExamService extends BaseService
         return $this->examRepository->find($id);
     }
 
-    public function editExam(array $attributes ,$id)
+    public function editExam(array $attributes, $id)
     {
-        return $this->examRepository->update($attributes,$id);
+        return $this->examRepository->update($attributes, $id);
     }
 
     public function deleteExam($id)
@@ -88,24 +89,41 @@ class ExamService extends BaseService
 
     public function editQuestion(array $attributes, $id)
     {
-        return $this->questionRepository->update($attributes,$id);
+        return $this->questionRepository->update($attributes, $id);
     }
 
     public function findOption($id)
     {
         return $this->optionRepository->find($id);
     }
+
     public function editOption(array $attributes, $idOption, $idQuestion)
     {
-        if($this->findOption($idOption) && $this->findOption($idOption)->idQuestion == $idQuestion )
-        {
-            return $this->optionRepository->update($attributes,$idOption);
+        if ($this->findOption($idOption) && $this->findOption($idOption)->idQuestion == $idQuestion) {
+            return $this->optionRepository->update($attributes, $idOption);
         }
-        return  $this->optionRepository->create($attributes);
+        return $this->optionRepository->create($attributes);
     }
 
-    public function editAnswer(array $attributes, $id)
+    public function findAnswer($idQuestion)
     {
-        return $this->answerRepository->update($attributes,$id);
+        return $this->answerRepository->findWhere(['idQuestion' => $idQuestion]);
     }
+
+    public function editAnswer(array $data, $idQuestion)
+    {
+        $answers = $this->findAnswer($idQuestion);
+        foreach ($answers as $ans) {
+            $this->answerRepository->delete($ans->id);
+        }
+        foreach ($data as $value) {
+            $opt = [
+                'idQuestion' => $idQuestion,
+                'answer' => $value,
+            ];
+            $answer = $this->addAnswer($opt);
+        }
+        return;
+    }
+
 }

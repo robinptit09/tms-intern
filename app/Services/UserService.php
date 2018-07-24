@@ -8,12 +8,17 @@ class UserService extends BaseService
 {
 
     public function create()
-    {
+    {Sentinel::registerAndActivate(array(
+        'email'    => 'conan989hd@gmail.com',
+        'password' => '123456',
+        'first_name' => 'Quân',
+        'last_name'  => 'Nguyễn',
+    ));
         Sentinel::registerAndActivate(array(
-            'email'    => 'conan989hd@gmail.com',
+            'email'    => 'nguyenvanhienptit@gmail.com',
             'password' => '123456',
-            'first_name' => 'Quân',
-            'last_name'  => 'Nguyễn',
+            'first_name' => 'Hien',
+            'last_name'  => 'Nguyen',
         ));
     }
 

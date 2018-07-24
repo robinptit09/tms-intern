@@ -11,4 +11,5 @@ use App\Packages\Repository\Contracts\RepositoryInterface;
 interface PostRepositoryInterface extends RepositoryInterface
 {
     //
+    public function aa();
 }

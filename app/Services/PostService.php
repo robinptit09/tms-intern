@@ -27,7 +27,7 @@ class PostService extends BaseService
         $this->postRepository->pushCriteria(app(PostCriteria::class));
 
         if($csv) {
-            return $this->postRepository->all();
+            return $this->postRepository->aaa();
         }
         return $this->postRepository->paginate(PAGE_SIZE);
     }

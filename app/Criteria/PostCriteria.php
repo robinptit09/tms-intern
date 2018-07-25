@@ -27,6 +27,8 @@ class PostCriteria implements CriteriaInterface
         'updated_at',
     ];
 
+    protected $mainTable = 'posts';
+
     /**
      * PostCriteria constructor.
      *
@@ -46,37 +48,17 @@ class PostCriteria implements CriteriaInterface
             'order' => $this->request->get('order')
         ];
 
-        $fieldsSearchable = $repository->getFieldsSearchable();
-
-        if ($options && !empty($fieldsSearchable)) {
-            $model = $model->where(function ($query) use ($fieldsSearchable, $options, $repository) {
-                foreach ($fieldsSearchable as $field => $condition) {
-                    $relation = null;
-
-                    $value = $repository->getSearchValue($field, $relation, $condition, $options);
-
-                    $modelTableName = $query->getModel()->getTable();
-
-                    if (!is_null($value)) {
-                        if (!is_null($relation)) {
-                            $query->whereHas($relation, function ($query) use ($field, $condition, $value) {
-                                $query->where($field, $condition, $value);
-                            });
-                        } else {
-                            $query->where($modelTableName . '.' . $field, $condition, $value);
-                        }
-                    }
-                }
-            });
-
-            $model = $model->select($this->select);
-
-            $mainSortTable = $model->getModel()->getTable();
-            $sorting = $repository->setOrder($mainSortTable, $sorting);
-
-            $model = $model->orderBy(array_get($sorting, 'sort'), array_get($sorting, 'order'));
-
+        if ($content = array_get($options, 'content')) {
+            $model = $model->where($this->mainTable . '.content', 'like', $content);
         }
+
+        $model = $model->select($this->select);
+
+        $mainSortTable = $model->getModel()->getTable();
+        $sorting = $repository->setOrder($mainSortTable, $sorting);
+
+        $model = $model->orderBy(array_get($sorting, 'sort'), array_get($sorting, 'order'));
+
 
         return $model;
     }

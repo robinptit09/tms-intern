@@ -100,6 +100,6 @@ Route::group(['middleware' => 'user'], function() {
 
     Route::get('exam/{id}', 'Frontend\UserController@getExam')->name('exam');
 
-    Route::post('test', 'Frontend\UserController@test')->name('test');
+    Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
 
 });

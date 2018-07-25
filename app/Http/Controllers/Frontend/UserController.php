@@ -79,10 +79,17 @@ class UserController extends Controller
         $exam = $this->userService->findExam($id);
         return view('frontend.pages.exam', compact('exam'));
     }
-     public function test(Request $request)
+     public function postExam(Request $request, $id)
      {
-         $data = $request->answer;
-         dd($data);
+         if ($request->has('answer'))
+         {
+             $data = $request->answer;
+             $check = $this->userService->checkPoint($data);
+         } else
+         {
+             return redirect()->back();
+         }
+
      }
 
 }

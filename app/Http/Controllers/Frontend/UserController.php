@@ -41,12 +41,9 @@ class UserController extends Controller
 
     public function getLogin()
     {
-        if ($user = $this->userService->checkLogin())
-        {
+        if ($user = $this->userService->checkLogin()) {
             return redirect()->route('index');
-        }
-        else
-        {
+        } else {
             return view('frontend.pages.login');
         }
     }
@@ -80,60 +77,14 @@ class UserController extends Controller
         $exam = $this->userService->findExam($id);
         return view('frontend.pages.exam', compact('exam'));
     }
-     public function postExam(Request $request, $id)
-     {
-         if ($request->has('answer'))
-         {
-             $data = $request->answer;
-             $check = $this->userService->checkPoint($data);
-         } else
-         {
-             return redirect()->back();
-         }
 
-     }
-
-
-//    public function getLogin()
-//    {
-//        if ($user = $this->userService->checkLogin())
-//        {
-//            return redirect()->route('index_user');
-//        }
-//        else
-//        {
-//            return view('user.login');
-//        }
-//    }
-
-    public function getCreate()
+    public function postExam(Request $request, $id)
     {
-        $this->userService->create();
+        if ($request->has('answer')) {
+            $data = $request->answer;
+            $check = $this->userService->checkPoint($data);
+        } else {
+            return redirect()->back();
+        }
     }
-
-//    public function postLogin(LoginRequest $request)
-//    {
-//        $user = $this->userService->login($request->email, $request->password);
-//        if($user) {
-//            if($user->hasAccess('user')){
-//                return redirect()->route('index_user');
-//            } else {
-//                $this->userService->logout();
-//                session()->flash('message', 'Login failed!');
-//                return redirect()->back();
-//            }
-//        }
-//        else {
-//            session()->flash('message', 'Login failed!');
-//            return redirect()->back();
-//        }
-//
-//    }
-//
-//    public function getLogout()
-//    {
-//        $this->userService->logout();
-//        return view('user.login');
-//    }
-
 }

@@ -68,23 +68,27 @@ class UserController extends Controller
     public function getListExams($id)
     {
         $exams = $this->userService->ExamsByCourse($id);
-
-        return view('frontend.pages.listexam', compact('exams'));
+        $action = $this->userService->checkAction();
+        return view('frontend.pages.listexam', compact('exams', 'action'));
     }
 
-    public function getExam($id)
+    public function getExam($id, Request $request)
     {
         $exam = $this->userService->findExam($id);
-        return view('frontend.pages.exam', compact('exam'));
+        $request->request->add(['idExam' => $id]);
+        $questions = $this->userService->findQuestionExam($id);
+        return view('frontend.pages.exam', compact('exam','questions'));
     }
 
     public function postExam(Request $request, $id)
     {
         if ($request->has('answer')) {
             $data = $request->answer;
-            $check = $this->userService->checkPoint($data);
+            $check = $this->userService->checkPoint($data, $id);
+            return view('frontend.pages.result',compact('check'));
         } else {
             return redirect()->back();
         }
     }
+
 }

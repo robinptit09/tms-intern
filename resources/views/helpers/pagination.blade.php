@@ -2,9 +2,9 @@
     <ul class="pagination pagination-right light-theme simple-pagination ">
         <!-- Previous Page Link -->
         @if ($paginator->onFirstPage())
-            <li class="disabled"><span>{{ __('view/operator.paging.page_previous') }}</span></li>
+            <li class="disabled"><span>{{ __('previous') }}</span></li>
         @else
-            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">{{ __('view/operator.paging.page_previous') }}</a></li>
+            <li><a href="{{ $paginator->previousPageUrl() }}" rel="prev">{{ __('previous') }}</a></li>
         @endif
 
     <!-- Pagination Elements -->
@@ -28,9 +28,9 @@
 
     <!-- Next Page Link -->
         @if ($paginator->hasMorePages())
-            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next" class="page-link next">{{ __('view/operator.paging.page_next') }}</a></li>
+            <li><a href="{{ $paginator->nextPageUrl() }}" rel="next" class="page-link next">{{ __('next') }}</a></li>
         @else
-            <li class="disabled"><span>{{ __('view/operator.paging.page_next') }}</span></li>
+            <li class="disabled"><span>{{ __('next') }}</span></li>
         @endif
     </ul>
 </div>

@@ -29,7 +29,8 @@ class RepoBindingServiceProvider extends ServiceProvider
             'Exam',
             'Question',
             'Option',
-            'Answer'
+            'Answer',
+            'ActionUsers'
         );
 
         foreach ($models as $model) {

@@ -8,16 +8,13 @@
             <div class="col-md-6">
                 <form action="{{ route('exam', $exam->id) }}" method="POST">
                     {{ csrf_field() }}
-                @php
-                    $i = 1;
-                @endphp
                     <div class="form-group"><h3>Khóa học: {{ $exam->course->name }}</h3>
                     </div>
                     <div class="form-group"><h3>Đề thi: {{ $exam->code }}</h3>
                     </div>
-                @foreach ($exam->question as $ques)
+                @foreach ($questions as $ques)
                     <div class="form-group">
-                        Câu hỏi {{ $i }}: <label> {!!$ques->description  !!}</label>
+                        <label> {!!$ques->description  !!}</label>
 
                         <div class="list-group">
                             @foreach ($ques->option as $opt)
@@ -32,11 +29,11 @@
                             @endforeach
                         </div>
                     </div>
-                    @php
-                        $i++;
-                    @endphp
                 @endforeach
+                    {{ $questions->appends($_GET)->links('helpers.pagination') }}
+                    <div class="form-group">
                     <button type="submit" class="btn btn-success">Nộp Bài</button>
+                    </div>
                 </form>
             </div>
         </div>

@@ -35,7 +35,14 @@
                                     Khó
                                 @endswitch
                             </td>
-                            <td>Chưa thi</td>
+                            <td>
+                                @foreach($action as $act)
+                                    @if($act->idExam == $exam->id)
+                                        Đã thi
+                                        @break
+                                    @endif
+                                @endforeach
+                            </td>
 
                         </tr>
                     @endforeach

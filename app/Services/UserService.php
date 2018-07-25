@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Criteria\QuestionCriteria;
 use Sentinel;
 use App\Interfaces\ExamRepositoryInterface as ExamRepository;
+use App\Interfaces\QuestionRepositoryInterface as QuestionRepository;
 use App\Interfaces\AnswerRepositoryInterface as AnswerRepository;
+use App\Interfaces\ActionUsersRepositoryInterface as ActionUsersRepository;
 
 class UserService extends BaseService
 {
@@ -13,11 +16,15 @@ class UserService extends BaseService
 
     public function __construct(
         ExamRepository $examRepository,
-        AnswerRepository $answerRepository
+        AnswerRepository $answerRepository,
+        QuestionRepository $questionRepository,
+        ActionUsersRepository $actionUsersRepository
     )
     {
         $this->examRepository = $examRepository;
         $this->answerRepository = $answerRepository;
+        $this->questionRepository = $questionRepository;
+        $this->actionUsersRepository = $actionUsersRepository;
     }
 
     public function create()
@@ -64,12 +71,17 @@ class UserService extends BaseService
         return $this->examRepository->find($id);
     }
 
+    public function checkAction()
+    {
+        return $this->actionUsersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
+    }
+
     public function findAnswer($id)
     {
         return $this->answerRepository->findWhere(['idQuestion' => $id]);
     }
 
-    public function checkPoint($data)
+    public function checkPoint($data , $id)
     {
         $count = 0;
         foreach ($data as $key => $value) {
@@ -81,7 +93,13 @@ class UserService extends BaseService
                 }
             }
         }
-        dd($count);
+
+        $question = $this->questionRepository->findWhere(['idExam' => $id])->count();
+
+        $point = round(($count*10)/$question, 2);
+
+        return $this->actionUsersRepository->create(['idUser' => Sentinel::getUser()->id , 'idExam' => $id, 'point' => $point]);
+
     }
 
     public function checkAnswerCorrect($answers, $value)
@@ -118,5 +136,12 @@ class UserService extends BaseService
             if($val == $value) return true;
         }
         return false;
+    }
+
+    public function findQuestionExam($id)
+    {
+        $this->questionRepository->pushCriteria(app(QuestionCriteria::class));
+
+        return $this->questionRepository->paginate(PAGE_SIZE);
     }
 }

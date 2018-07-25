@@ -14,6 +14,6 @@ if (!defined('DEFINE_CONSTANT')) {
     define('DEFINE_CONSTANT', 1);
     // Common
     define('ACTIVE', 1);
-    define('PAGE_SIZE', 10);
+    define('PAGE_SIZE', 1000);
 }
 

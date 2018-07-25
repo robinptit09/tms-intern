@@ -82,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     });
 });
 
+
 Route::get('/', 'Frontend\UserController@index')->name('index');
 
 Route::get('login', 'Frontend\UserController@getLogin')->name('login');
@@ -103,3 +104,12 @@ Route::group(['middleware' => 'user'], function() {
     Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
 
 });
+
+Route::get('/getCreate','Frontend\UserController@getCreate')->name('getCreate');
+
+Route::get('login','LoginController@getLogin');
+Route::post('login','LoginController@postLogin');
+Route::get('','HomeController@getIndex');
+
+Route::resource('register','RegisterController');
+

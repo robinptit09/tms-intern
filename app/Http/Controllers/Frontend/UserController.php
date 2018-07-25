@@ -17,6 +17,7 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
+
     public function index()
     {
         return view('frontend.pages.index');
@@ -91,5 +92,48 @@ class UserController extends Controller
          }
 
      }
+
+
+//    public function getLogin()
+//    {
+//        if ($user = $this->userService->checkLogin())
+//        {
+//            return redirect()->route('index_user');
+//        }
+//        else
+//        {
+//            return view('user.login');
+//        }
+//    }
+
+    public function getCreate()
+    {
+        $this->userService->create();
+    }
+
+//    public function postLogin(LoginRequest $request)
+//    {
+//        $user = $this->userService->login($request->email, $request->password);
+//        if($user) {
+//            if($user->hasAccess('user')){
+//                return redirect()->route('index_user');
+//            } else {
+//                $this->userService->logout();
+//                session()->flash('message', 'Login failed!');
+//                return redirect()->back();
+//            }
+//        }
+//        else {
+//            session()->flash('message', 'Login failed!');
+//            return redirect()->back();
+//        }
+//
+//    }
+//
+//    public function getLogout()
+//    {
+//        $this->userService->logout();
+//        return view('user.login');
+//    }
 
 }

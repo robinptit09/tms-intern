@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAnswerTable extends Migration
+class CreateActionusersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateAnswerTable extends Migration
      */
     public function up()
     {
-        Schema::create('answer', function (Blueprint $table) {
+        Schema::create('actionusers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('idQuestion')->unsigned();
-            $table->foreign('idQuestion')->references('id')->on('questions')->onDelete('cascade');
-            $table->integer('answer')->unsigned();
+            $table->integer('idUser')->unsigned();
+            $table->foreign('idUser')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('idExam')->unsigned();
+            $table->float('point', 8, 2);
             $table->timestamps();
         });
     }
@@ -29,6 +30,8 @@ class CreateAnswerTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('answer');
+        Schema::dropIfExists('actionusers');
     }
+
+
 }

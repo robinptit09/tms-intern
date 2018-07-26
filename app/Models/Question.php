@@ -26,6 +26,6 @@ class Question extends Model
 
     public function answer()
     {
-        return $this->hasOne('App\Models\Answer','idQuestion','id');
+        return $this->hasMany('App\Models\Answer','idQuestion','id');
     }
 }

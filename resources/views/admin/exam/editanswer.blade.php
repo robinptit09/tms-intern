@@ -39,17 +39,17 @@
                                 @foreach ($question->option as $opt)
                                     <div class="list-group-item">
                                         @if($question->type == 1)
-                                            <input type="radio" class="float-right" name="radio_answer" value="{{ $opt->id }}"
-                                                   @if($opt->id == $question->answer->answer)
+                                            <input type="radio" class="float-right" name="answer[]" value="{{ $opt->id }}"
+                                                   @foreach($question->answer as $ans)
+                                                   @if($ans->answer == $opt->id)
                                                    checked="checked"
-                                                    @endif/>
+                                                    @break
+                                                    @endif
+                                                    @endforeach/>
                                         @else
-                                            @php $answer = explode('-', $question->answer->answer);
-
-                                            @endphp
-                                            <input type="checkbox" class="float-right" name="checkbox_answer[]" value="{{ $opt->id }}"
-                                                   @foreach($answer as $ans)
-                                                   @if($ans == $opt->id)
+                                            <input type="checkbox" class="float-right" name="answer[]" value="{{ $opt->id }}"
+                                                   @foreach($question->answer as $ans)
+                                                   @if($ans->answer == $opt->id)
                                                    checked="checked"
                                                     @break
                                                     @endif
@@ -58,7 +58,6 @@
                                         <span class="text-nowrap">{{ $opt->content }}</span>
                                     </div>
                                 @endforeach
-                                <input type="hidden" value="{{ $question->answer->id }}" name="idAnswer">
                             </div>
                             <button type="submit" class="btn btn-default">OK</button>
                         </div>

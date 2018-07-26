@@ -38,9 +38,9 @@
                                 @foreach ($question->option as $opt)
                                     <div class="list-group-item">
                                         @if($question->type == 1)
-                                            <input type="radio" class="float-right" name="radio_answer" value="{{ $opt->id }}"/>
+                                            <input type="radio" class="float-right" name="answer[]" value="{{ $opt->id }}"/>
                                         @else
-                                            <input type="checkbox" class="float-right" name="checkbox_answer[]" value="{{ $opt->id }}"/>
+                                            <input type="checkbox" class="float-right" name="answer[]" value="{{ $opt->id }}"/>
                                         @endif
                                         <span class="text-nowrap">{{ $opt->content }}</span>
                                     </div>

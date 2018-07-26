@@ -40,17 +40,17 @@
                                     <div class="list-group-item">
                                         @if($ques->type == 1)
                                             <input type="radio" class="float-right"
-                                                   @if($opt->id == $ques->answer->answer)
+                                                   @foreach($ques->answer as $ans)
+                                                   @if($ans->answer == $opt->id)
                                                    checked="checked"
+                                                   @break
                                                    @endif
+                                                   @endforeach
                                                    disabled/>
                                         @else
-                                            @php $answer = explode('-', $ques->answer->answer);
-
-                                            @endphp
                                             <input type="checkbox" class="float-right"
-                                                   @foreach($answer as $ans)
-                                                   @if($ans == $opt->id)
+                                                   @foreach($ques->answer as $ans)
+                                                   @if($ans->answer == $opt->id)
                                                    checked="checked"
                                                    @break
                                                    @endif

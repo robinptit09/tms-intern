@@ -18,7 +18,14 @@ class AdminMiddleware
     {
         if (Sentinel::check())
         {
-            return $next($request);
+            $user = Sentinel::getUser();
+            if ($user->hasAccess('admin')) {
+                return $next($request);
+            } else {
+                Sentinel::logout();
+                session()->flash('message', 'Login failed!');
+                return redirect()->back();
+            }
         }
         else
         {

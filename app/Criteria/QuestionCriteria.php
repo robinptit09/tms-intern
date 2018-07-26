@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Packages\Repository\Contracts\RepositoryInterface;
 use App\Packages\Repository\Contracts\CriteriaInterface;
 
-class PostCriteria implements CriteriaInterface
+class QuestionCriteria implements CriteriaInterface
 {
 
     /**
@@ -21,16 +21,17 @@ class PostCriteria implements CriteriaInterface
      */
     protected $select = [
         'id',
-        'title',
-        'content',
+        'idExam',
+        'description',
+        'type',
         'created_at',
         'updated_at',
     ];
 
-    protected $mainTable = 'posts';
+    protected $mainTable = 'questions';
 
     /**
-     * PostCriteria constructor.
+     * QuestionCriteria constructor.
      *
      * @param Request $request
      */
@@ -47,9 +48,8 @@ class PostCriteria implements CriteriaInterface
             'sort' => $this->request->get('sort'),
             'order' => $this->request->get('order')
         ];
-
-        if ($content = array_get($options, 'content')) {
-            $model = $model->where($this->mainTable . '.content', 'like', $content);
+        if ($idExam = array_get($options, 'idExam')) {
+            $model = $model->where($this->mainTable . '.idExam', '=', $idExam);
         }
 
         $model = $model->select($this->select);

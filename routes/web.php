@@ -80,17 +80,51 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
         Route::post('question/{idquestion}/editAnswer', 'Admin\ExamController@postEditAnswer')->name('exam_editAnswer');
     });
-
-    Route::any('{query}',
-        function() { return redirect('/'); })
-        ->where('query', '.*')->name('admin');
 });
 
-Route::get('/getCreate','Frontend\UserController@getCreate')->name('getCreate');
 
-Route::get('login','LoginController@getLogin');
-Route::post('login','LoginController@postLogin');
-Route::get('','HomeController@getIndex');
+Route::get('/', 'Frontend\UserController@index')->name('index');
+
+Route::get('login', 'Frontend\UserController@getLogin')->name('login');
+
+Route::post('login', 'Frontend\UserController@postLogin')->name('login');
+
+Route::get('register', 'Frontend\UserController@getRegister')->name('register');
+
+Route::post('register', 'Frontend\UserController@postRegister')->name('register');
+
+Route::get('logout', 'Frontend\UserController@getLogout')->name('logout');
+
+Route::group(['middleware' => 'user'], function() {
+
+    Route::get('listCourse/{id}', 'Frontend\UserController@getListExams')->name('listCourse');
+
+    Route::get('exam/{id}', 'Frontend\UserController@getExam')->name('exam');
+
+    Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
+
+});
+
+Route::get('/', 'Frontend\UserController@index')->name('index');
+
+Route::get('login', 'Frontend\UserController@getLogin')->name('login');
+
+Route::post('login', 'Frontend\UserController@postLogin')->name('login');
+
+Route::get('register', 'Frontend\UserController@getRegister')->name('register');
+
+Route::post('register', 'Frontend\UserController@postRegister')->name('register');
+
+Route::get('logout', 'Frontend\UserController@getLogout')->name('logout');
+
+Route::group(['middleware' => 'user'], function() {
+
+    Route::get('listCourse/{id}', 'Frontend\UserController@getListExams')->name('listCourse');
+
+    Route::get('exam/{id}', 'Frontend\UserController@getExam')->name('exam');
+
+    Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
+
 
 Route::resource('register','RegisterController');
 //Route::get('views.index', 'UserController');
@@ -115,3 +149,6 @@ Route::group(['prefix'=>'user'],
 //Route::get('/user/edit', ['as' => 'user_editUser' , 'uses' => 'Admin\UserController@getEditUser']);
 //
 //Route::post('/user/edit/', ['as' => 'user_newUser' , 'uses' => 'Admin\UserController@postEditUser']);
+
+});
+

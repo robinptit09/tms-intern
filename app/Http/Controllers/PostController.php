@@ -16,6 +16,7 @@ class PostController extends Controller
 
     public function show (Request $request)
     {
+        $request->request->add(['content' => 'Lela Johnston']);
         $posts = $this->postService->all();
         return response()->json($posts);
         //return view('post.show', compact('posts'));

@@ -126,7 +126,7 @@ Route::group(['middleware' => 'user'], function() {
     Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
 
 
-Route::resource('register','RegisterController');
+Route::get('getCreat','Admin\UserController@getCreate');
 //Route::get('views.index', 'UserController');
 //Route::post('views.index', 'UserController');
 Route::group(['prefix'=>'user'],

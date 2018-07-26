@@ -9,7 +9,6 @@ use Sentinel;
 use App\Interfaces\ExamRepositoryInterface as ExamRepository;
 use App\Interfaces\QuestionRepositoryInterface as QuestionRepository;
 use App\Interfaces\AnswerRepositoryInterface as AnswerRepository;
-use App\Interfaces\ActionUsersRepositoryInterface as ActionUsersRepository;
 
 class UserService extends BaseService
 {
@@ -22,27 +21,17 @@ class UserService extends BaseService
         ExamRepository $examRepository,
         AnswerRepository $answerRepository,
         QuestionRepository $questionRepository,
-        ActionUsersRepository $actionUsersRepository,
         UserRepositoryInterface $userRepository
     )
     {
         $this->examRepository = $examRepository;
         $this->answerRepository = $answerRepository;
         $this->questionRepository = $questionRepository;
-        $this->actionUsersRepository = $actionUsersRepository;
         $this->userRepository = $userRepository;
     }
 
     public function create()
     {
-
-        Sentinel::registerAndActivate(array(
-            'email'    => 'nguyenvanhienptit31@gmail.com',
-            'password' => '12345678',
-            'permissions' => ['admin' => true],
-            'first_name' => 'Hiền',
-            'last_name'  => 'Nguyễn',
-        ));
         return Sentinel::registerAndActivate(array(
             'email' => 'conan989hd@gmail.com',
             'password' => '123456',
@@ -104,7 +93,7 @@ class UserService extends BaseService
 
     public function checkAction()
     {
-        return $this->actionUsersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
+        return $this->usersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
     }
 
     public function findAnswer($id)

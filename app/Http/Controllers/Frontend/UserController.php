@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-namespace App\Http\Controllers\UserController;
+
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
@@ -34,11 +34,6 @@ class UserController extends Controller
     {
         $this->userService->create();
     }
-    public function index()
-    {
-        $users = User::with('roles')->get();
-        return view('views.index', compact('users'));
-    }
 
 //    public function postLogin(LoginRequest $request)
 //    {
@@ -66,7 +61,7 @@ class UserController extends Controller
 //    }
 
 
-    public function indexs()
+    public function index()
     {
         return view('frontend.pages.index');
     }

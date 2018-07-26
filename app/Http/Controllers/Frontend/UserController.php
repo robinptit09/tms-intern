@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
+namespace App\Http\Controllers\UserController;
 use App\Http\Requests\LoginRequest;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
@@ -30,6 +30,11 @@ class UserController extends Controller
     public function getCreate()
     {
         $this->userService->create();
+    }
+    public function index()
+    {
+        $users = User::with('roles')->get();
+        return view('views.index', compact('users'));
     }
 
 //    public function postLogin(LoginRequest $request)

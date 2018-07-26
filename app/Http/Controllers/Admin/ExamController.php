@@ -24,6 +24,12 @@ class ExamController extends Controller
         $exams = $this->examService->allExam();
         return view('admin.exam.list', compact('exams','question'));
     }
+    public function getExamListUser()
+    {
+        $exams = $this->examService->allExam();
+        return view('admin.exam.listuser', compact('exams','question'));
+    }
+
 
     public function getExamAdd()
     {

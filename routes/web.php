@@ -93,3 +93,25 @@ Route::post('login','LoginController@postLogin');
 Route::get('','HomeController@getIndex');
 
 Route::resource('register','RegisterController');
+//Route::get('views.index', 'UserController');
+//Route::post('views.index', 'UserController');
+Route::group(['prefix'=>'user'],
+     function ()
+     {
+         Route::get('list', ['as' => 'user_listuser' , 'uses' => 'Admin\UserController@getlistuser']);
+
+         Route::get('create', ['as' => 'user_create' , 'uses' => 'Admin\UserController@getadduser']);
+
+         Route::post('store', ['as' => 'user_store' , 'uses' => 'Admin\UserController@store']);
+         Route::get('delete/{id}', ['as' => '' , 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');;
+
+
+
+
+     }
+    );
+
+
+//Route::get('/user/edit', ['as' => 'user_editUser' , 'uses' => 'Admin\UserController@getEditUser']);
+//
+//Route::post('/user/edit/', ['as' => 'user_newUser' , 'uses' => 'Admin\UserController@postEditUser']);

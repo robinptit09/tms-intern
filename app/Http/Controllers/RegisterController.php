@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 
+
 class RegisterController extends Controller
 {
     /**
@@ -42,11 +43,21 @@ class RegisterController extends Controller
         $user->last_name = $request->lastname;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
-
         $user->save();
         return redirect('login');
     }
+    public function postRegister(RegisterRequest $request) {
+        $email = $request->input('email');
+        $password = $request->input('password');
 
+        if( Auth::attempt(['email' => $email, 'password' =>$password])) {
+            return redirect()->intended('/');
+        } else {
+            $errors = new MessageBag(['errorlogin' => 'Email hoặc mật khẩu không đúng']);
+            return redirect()->back()->withInput()->withErrors($errors);
+        }
+
+    }
     /**
      * Display the specified resource.
      *

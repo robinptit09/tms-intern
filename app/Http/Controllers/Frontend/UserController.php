@@ -71,19 +71,20 @@ class UserController extends Controller
         return redirect(route('login'));
     }
 
-    public function getListExams($id)
+    public function getListExams($id, Request $request)
     {
-        $exams = $this->userService->ExamsByCourse($id);
+        $request->request->add(['ic' => $id]);
+        $exams = $this->userService->ExamsByCourse();
         $action = $this->userService->findAction();
         $maxPoint = $this->userService->maxPoint();
-        return view('frontend.pages.listexam', compact('exams', 'action','maxPoint'));
+        return view('frontend.pages.listexam', compact('exams', 'action','maxPoint','id'));
     }
 
     public function getExam($id, Request $request)
     {
         $exam = $this->userService->findExam($id);
         $request->request->add(['idExam' => $id]);
-        $questions = $this->userService->findQuestionExam($id);
+        $questions = $this->userService->findQuestionExam();
         return view('frontend.pages.exam', compact('exam', 'questions'));
     }
 

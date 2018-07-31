@@ -5,6 +5,13 @@
     <div class="container">
         <div class="row carousel-holder">
             <div class="col-md-6">
+                <form class="navbar-form navbar-left" role="search" action="{{ route('listCourse',$id) }}" method="GET">
+                    <div class="form-group">
+                        {{ csrf_field() }}
+                        <input type="text" class="form-control" placeholder="Search" name="search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
                 <table class="table table-condensed">
                     <thead>
                     <tr>
@@ -45,8 +52,10 @@
 
                         </tr>
                     @endforeach
+
                     </tbody>
                 </table>
+                {{ $exams->appends($_GET)->links('helpers.pagination') }}
             </div>
             <div class="col-md-1"></div>
             <div class="col-md-5"><strong>Top điểm</strong>

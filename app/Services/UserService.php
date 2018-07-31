@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Criteria\ExamCriteria;
 use Illuminate\Http\Request;
 use App\Criteria\QuestionCriteria;
 use Sentinel;
@@ -84,9 +85,11 @@ class UserService extends BaseService
         return Sentinel::registerAndActivate($data);
     }
 
-    public function ExamsByCourse($id)
+    public function ExamsByCourse()
     {
-        return $this->examRepository->findWhere(['idCourse' => $id, 'status' => true]);
+        $this->examRepository->pushCriteria(app(ExamCriteria::class));
+
+        return $this->examRepository->paginate(10);
     }
 
     public function findExam($id)
@@ -165,7 +168,7 @@ class UserService extends BaseService
         return false;
     }
 
-    public function findQuestionExam($id)
+    public function findQuestionExam()
     {
         $this->questionRepository->pushCriteria(app(QuestionCriteria::class));
 

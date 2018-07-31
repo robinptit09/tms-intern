@@ -4,9 +4,19 @@
     <!-- Page Content -->
     <div class="container">
         <div class="row carousel-holder">
-            <div class="col-md-3"></div>
+            <div class="col-md-3">
+                <div id="circleClock" class="circle-clock">
+                    <div id="clockTime" class="clock-time">
+                        <h3>
+                            <input type="hidden" id="time" value="{{ $exam->time }}">
+                            <span id="minutes">{{ $exam->time }}</span>:
+                            <span id="seconds">00</span>
+                        </h3>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6">
-                <form action="{{ route('exam', $exam->id) }}" method="POST">
+                <form action="{{ route('exam', $exam->id) }}" method="POST" id="submit">
                     {{ csrf_field() }}
                     <div class="form-group"><h3>Khóa học: {{ $exam->course->name }}</h3>
                     </div>
@@ -32,7 +42,7 @@
                 @endforeach
                     {{ $questions->appends($_GET)->links('helpers.pagination') }}
                     <div class="form-group">
-                    <button type="submit" class="btn btn-success">Nộp Bài</button>
+                    <button type="submit" class="btn btn-success" >Nộp Bài</button>
                     </div>
                 </form>
             </div>

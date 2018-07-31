@@ -51,6 +51,7 @@ class ExamController extends Controller
             'idCourse' => $request->idCourse,
             'code' => $request->code,
             'level' => $request->level,
+            'time' => $request->time,
             'status' => $request->status
         ];
 
@@ -80,6 +81,7 @@ class ExamController extends Controller
             'idCourse' => $request->idCourse,
             'code' => $request->code,
             'level' => $request->level,
+            'time' => $request->time,
             'status' => $request->status
         ];
 

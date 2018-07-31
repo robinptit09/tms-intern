@@ -71,7 +71,7 @@ class UserService extends BaseService
         return $this->examRepository->find($id);
     }
 
-    public function checkAction()
+    public function findAction()
     {
         return $this->actionUsersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
     }
@@ -84,6 +84,10 @@ class UserService extends BaseService
     public function checkPoint($data , $id)
     {
         $count = 0;
+        if($data == NULL) {
+            return $this->actionUsersRepository->create(['idUser' => Sentinel::getUser()->id , 'idExam' => $id, 'point' => 0]);
+        }
+
         foreach ($data as $key => $value) {
             $answers = $this->findAnswer($key);
             if ($this->checkAnswerCorrect($answers, $value)) {
@@ -143,5 +147,16 @@ class UserService extends BaseService
         $this->questionRepository->pushCriteria(app(QuestionCriteria::class));
 
         return $this->questionRepository->paginate(PAGE_SIZE);
+    }
+
+    public function editInfoUser($data)
+    {
+        return Sentinel::update(Sentinel::getUser(), $data);
+    }
+
+    public function maxPoint()
+    {
+        $max = $this->actionUsersRepository->maxPoint('point');
+        return $this->actionUsersRepository->findWhere(['point' => $max]);
     }
 }

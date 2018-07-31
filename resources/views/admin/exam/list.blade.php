@@ -26,6 +26,7 @@
                         <th>Mã đề</th>
                         <th>Số câu hỏi</th>
                         <th>Mức độ</th>
+                        <th>Thời gian (phút)</th>
                         <th>Trạng thái</th>
                         <th>Edit</th>
                         <th>Detail</th>
@@ -55,6 +56,7 @@
                                     Khó
                                 @endswitch
                             </td>
+                            <td>{{ $exam->time }}</td>
                             <td>@if ($exam->status === 1)
                                     Public
                                 @else

@@ -26,6 +26,7 @@ class AddExamRequest extends FormRequest
         return [
             'idCourse' => 'required',
             'code' => 'required|unique:exams,code',
+            'time' => 'required|numeric|min:1',
         ];
     }
 
@@ -35,6 +36,9 @@ class AddExamRequest extends FormRequest
             'idCourse.required' => 'Chọn khóa học',
             'code.required' => 'Mã đề không được trống',
             'code.unique' => 'Mã đề đã tồn tại',
+            'time.unique' => 'Chọn thời gian',
+            'time.numeric' => 'Thời gian phải là số',
+            'time.min' => 'Thời gian tối thiểu 1 phút',
         ];
     }
 

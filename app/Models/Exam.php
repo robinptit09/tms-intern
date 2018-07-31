@@ -12,6 +12,7 @@ class Exam extends Model
         'code',
         'idCourse',
         'numberQuestion',
+        'time',
         'level',
         'status'
     ];

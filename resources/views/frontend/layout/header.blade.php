@@ -48,7 +48,7 @@
 
                 @if ($user = Sentinel::getUser())
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> {{$user->first_name}}</a>
+                        <a href="{{ route('user') }}"><span class="glyphicon glyphicon-user"></span> {{$user->first_name}}</a>
                     </li>
 
                     <li>

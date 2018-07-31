@@ -2,13 +2,14 @@
 
 namespace App\Services;
 
-use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use App\Criteria\QuestionCriteria;
 use Sentinel;
 use App\Interfaces\ExamRepositoryInterface as ExamRepository;
 use App\Interfaces\QuestionRepositoryInterface as QuestionRepository;
 use App\Interfaces\AnswerRepositoryInterface as AnswerRepository;
+use App\Interfaces\UserRepositoryInterface as UserRepository;
+use App\Interfaces\ActionUsersRepositoryInterface as ActionUsersRepository;
 
 class UserService extends BaseService
 {
@@ -21,13 +22,15 @@ class UserService extends BaseService
         ExamRepository $examRepository,
         AnswerRepository $answerRepository,
         QuestionRepository $questionRepository,
-        UserRepositoryInterface $userRepository
+        UserRepository $userRepository,
+        ActionUsersRepository $actionUsersRepository
     )
     {
         $this->examRepository = $examRepository;
         $this->answerRepository = $answerRepository;
         $this->questionRepository = $questionRepository;
         $this->userRepository = $userRepository;
+        $this->actionUsersRepository = $actionUsersRepository;
     }
 
     public function create()
@@ -93,7 +96,7 @@ class UserService extends BaseService
 
     public function findAction()
     {
-        return $this->usersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
+        return $this->actionUsersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
     }
 
     public function findAnswer($id)

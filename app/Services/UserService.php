@@ -2,15 +2,18 @@
 
 namespace App\Services;
 
+use App\Interfaces\UserRepositoryInterface;
+use Illuminate\Http\Request;
 use App\Criteria\QuestionCriteria;
 use Sentinel;
 use App\Interfaces\ExamRepositoryInterface as ExamRepository;
 use App\Interfaces\QuestionRepositoryInterface as QuestionRepository;
 use App\Interfaces\AnswerRepositoryInterface as AnswerRepository;
-use App\Interfaces\ActionUsersRepositoryInterface as ActionUsersRepository;
 
 class UserService extends BaseService
 {
+
+    private $userRepository;
 
     protected $examRepository;
 
@@ -18,13 +21,13 @@ class UserService extends BaseService
         ExamRepository $examRepository,
         AnswerRepository $answerRepository,
         QuestionRepository $questionRepository,
-        ActionUsersRepository $actionUsersRepository
+        UserRepositoryInterface $userRepository
     )
     {
         $this->examRepository = $examRepository;
         $this->answerRepository = $answerRepository;
         $this->questionRepository = $questionRepository;
-        $this->actionUsersRepository = $actionUsersRepository;
+        $this->userRepository = $userRepository;
     }
 
     public function create()
@@ -56,6 +59,23 @@ class UserService extends BaseService
         return Sentinel::logout();
     }
 
+
+    public function allUser()
+    {
+        $list = $this->userRepository->all();
+        return $list;
+    }
+
+    public function addUser(Request $request)
+    {
+        Sentinel::registerAndActivate($request->all());
+    }
+    public function getUserDelete($id)
+    {
+        return $this->userRepository->delete($id);
+    }
+
+
     public function register($data)
     {
         return Sentinel::registerAndActivate($data);
@@ -73,7 +93,7 @@ class UserService extends BaseService
 
     public function findAction()
     {
-        return $this->actionUsersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
+        return $this->usersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
     }
 
     public function findAnswer($id)
@@ -160,3 +180,4 @@ class UserService extends BaseService
         return $this->actionUsersRepository->findWhere(['point' => $max]);
     }
 }
+

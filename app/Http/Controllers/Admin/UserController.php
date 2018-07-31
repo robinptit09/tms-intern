@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\LoginRequest;
+use App\Http\Controllers\Admin\User;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use DB;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -71,4 +74,33 @@ class UserController extends Controller
     {
         return view('admin.layout.master');
     }
+    public function getlistuser()
+    {
+        $users = $this->userService->allUser();
+        return view('user.listuser', compact('users','question'));
+    }
+    public function getadduser()
+    {
+        return view('user.adduser');
+    }
+
+    public function store(Request $request)
+    {
+        $this->userService->addUser($request);
+
+    }
+//    public function getEditUser($id)
+//    {
+//        $users = users::find($id);
+//        return view('user.editUser');
+//
+//    }
+
+    public function getUserDelete($id)
+    {
+       $this->userService->getUserDelete($id);
+        return redirect()->back()->with('Xóa thành công!');
+
+    }
+
 }

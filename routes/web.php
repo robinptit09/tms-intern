@@ -80,6 +80,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
 
         Route::post('question/{idquestion}/editAnswer', 'Admin\ExamController@postEditAnswer')->name('exam_editAnswer');
     });
+
+    Route::group(['prefix'=>'user'], function () {
+        Route::get('list', ['as' => 'user_listuser' , 'uses' => 'Admin\UserController@getlistuser']);
+
+        Route::get('create', ['as' => 'user_create' , 'uses' => 'Admin\UserController@getadduser']);
+
+        Route::post('store', ['as' => 'user_store' , 'uses' => 'Admin\UserController@store']);
+        Route::get('delete/{id}', ['as' => '' , 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');
+    });
 });
 
 

@@ -30,7 +30,7 @@ class RepoBindingServiceProvider extends ServiceProvider
             'Question',
             'Option',
             'Answer',
-            'ActionUsers'
+            'User'
         );
 
         foreach ($models as $model) {

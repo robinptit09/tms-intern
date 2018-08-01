@@ -42,7 +42,7 @@
                 @endforeach
                     {{ $questions->appends($_GET)->links('helpers.pagination') }}
                     <div class="form-group">
-                    <button type="submit" class="btn btn-success" >Nộp Bài</button>
+                    <button type="submit" class="btn btn-success" id="submit-exam">Nộp Bài</button>
                     </div>
                 </form>
             </div>
@@ -51,4 +51,14 @@
     </div>
     </div>
     <!-- end Page Content -->
+@endsection
+
+@section('script')
+    <script>
+
+        $('form').submit(function() {
+            $(this).find("button[type='submit']").prop('disabled',true);
+        });
+
+    </script>
 @endsection

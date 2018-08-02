@@ -89,7 +89,7 @@ class UserService extends BaseService
     {
         $this->examRepository->pushCriteria(app(ExamCriteria::class));
 
-        return $this->examRepository->paginate(10);
+        return $this->examRepository->paginate(2);
     }
 
     public function findExam($id)

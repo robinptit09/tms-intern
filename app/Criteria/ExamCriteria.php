@@ -47,6 +47,7 @@ class ExamCriteria implements CriteriaInterface
     public function apply($model, RepositoryInterface $repository)
     {
         $options = $this->request->all();
+        $this->request->request->remove('ic');
 
         $sorting = [
             'sort' => $this->request->get('sort'),
@@ -64,8 +65,7 @@ class ExamCriteria implements CriteriaInterface
 
         $mainSortTable = $model->getModel()->getTable();
         $sorting = $repository->setOrder($mainSortTable, $sorting);
-
-        $model = $model->orderBy(array_get($sorting, 'sort'), array_get($sorting, 'order'));
+        $model = $model->orderBy(array_get($sorting, 'sort'), 'asc');
 
 
         return $model;

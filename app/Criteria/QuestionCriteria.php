@@ -44,6 +44,8 @@ class QuestionCriteria implements CriteriaInterface
     {
 
         $options = $this->request->all();
+        $this->request->request->remove('idExam');
+
         $sorting = [
             'sort' => $this->request->get('sort'),
             'order' => $this->request->get('order')

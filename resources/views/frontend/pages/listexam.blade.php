@@ -7,7 +7,6 @@
             <div class="col-md-6">
                 <form class="navbar-form navbar-left" role="search" action="{{ route('listCourse',$id) }}" method="GET">
                     <div class="form-group">
-                        {{ csrf_field() }}
                         <input type="text" class="form-control" placeholder="Search" name="search">
                     </div>
                     <button type="submit" class="btn btn-default">Submit</button>

@@ -58,8 +58,8 @@ class ExamCriteria implements CriteriaInterface
         if($search = array_get($options, 'search')){
             $model = $model->leftJoin($this->questionTable, $this->mainTable.'.id', '=', $this->questionTable.'.idExam')
             ->where($this->questionTable.'.description', 'like', '%'.$search.'%');
+        }
 
-    }
         $model = $model->select($this->select);
 
         $mainSortTable = $model->getModel()->getTable();

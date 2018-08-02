@@ -7,6 +7,7 @@ use App\Interfaces\CourseRepositoryInterface as CourseRepository;
 use App\Interfaces\QuestionRepositoryInterface as QuestionRepository;
 use App\Interfaces\OptionRepositoryInterface as OptionRepository;
 use App\Interfaces\AnswerRepositoryInterface as AnswerRepository;
+use App\Criteria\ExamCriteria;
 
 class ExamService extends BaseService
 {
@@ -32,9 +33,12 @@ class ExamService extends BaseService
         $this->answerRepository = $answerRepository;
     }
 
-    public function allExam()
+    public function listExam()
     {
-        return $this->examRepository->all();
+        $this->examRepository->pushCriteria(app(ExamCriteria::class));
+
+        return $this->examRepository->paginate(10);
+
     }
 
     public function allCourse()

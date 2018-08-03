@@ -50,9 +50,6 @@
                             $count++;
                         @endphp
                     @endforeach
-
                     </tbody>
                 </table>
-
-
 @endsection

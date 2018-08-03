@@ -2,13 +2,15 @@
 
 namespace App\Services;
 
-use App\Interfaces\UserRepositoryInterface;
+use App\Criteria\ExamCriteria;
 use Illuminate\Http\Request;
 use App\Criteria\QuestionCriteria;
 use Sentinel;
 use App\Interfaces\ExamRepositoryInterface as ExamRepository;
 use App\Interfaces\QuestionRepositoryInterface as QuestionRepository;
 use App\Interfaces\AnswerRepositoryInterface as AnswerRepository;
+use App\Interfaces\UserRepositoryInterface as UserRepository;
+use App\Interfaces\ActionUsersRepositoryInterface as ActionUsersRepository;
 
 class UserService extends BaseService
 {
@@ -21,22 +23,24 @@ class UserService extends BaseService
         ExamRepository $examRepository,
         AnswerRepository $answerRepository,
         QuestionRepository $questionRepository,
-        UserRepositoryInterface $userRepository
+        UserRepository $userRepository,
+        ActionUsersRepository $actionUsersRepository
     )
     {
         $this->examRepository = $examRepository;
         $this->answerRepository = $answerRepository;
         $this->questionRepository = $questionRepository;
         $this->userRepository = $userRepository;
+        $this->actionUsersRepository = $actionUsersRepository;
     }
 
     public function create()
     {
         return Sentinel::registerAndActivate(array(
-            'email' => 'nguyenvanhienptit11@gmail.com',
+            'email' => 'conan989hd@gmail.com',
             'password' => '123456',
             'permissions' => ['admin' => true],
-            'first_name' => 'Hien',
+            'first_name' => 'Quân',
             'last_name' => 'Nguyễn',
         ));
     }
@@ -62,8 +66,8 @@ class UserService extends BaseService
 
     public function allUser()
     {
-        return Sentinel::getUserRepository()->get();
-
+        $list = $this->userRepository->all();
+        return $list;
     }
 
     public function addUser(Request $request)
@@ -81,9 +85,11 @@ class UserService extends BaseService
         return Sentinel::registerAndActivate($data);
     }
 
-    public function ExamsByCourse($id)
+    public function ExamsByCourse()
     {
-        return $this->examRepository->findWhere(['idCourse' => $id, 'status' => true]);
+        $this->examRepository->pushCriteria(app(ExamCriteria::class));
+
+        return $this->examRepository->paginate(2);
     }
 
     public function findExam($id)
@@ -91,9 +97,9 @@ class UserService extends BaseService
         return $this->examRepository->find($id);
     }
 
-    public function checkAction()
+    public function findAction()
     {
-        return $this->usersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
+        return $this->actionUsersRepository->findWhere(['idUser' => Sentinel::getUser()->id]);
     }
 
     public function findAnswer($id)
@@ -104,6 +110,10 @@ class UserService extends BaseService
     public function checkPoint($data , $id)
     {
         $count = 0;
+        if($data == NULL) {
+            return $this->actionUsersRepository->create(['idUser' => Sentinel::getUser()->id , 'idExam' => $id, 'point' => 0]);
+        }
+
         foreach ($data as $key => $value) {
             $answers = $this->findAnswer($key);
             if ($this->checkAnswerCorrect($answers, $value)) {
@@ -158,11 +168,22 @@ class UserService extends BaseService
         return false;
     }
 
-    public function findQuestionExam($id)
+    public function findQuestionExam()
     {
         $this->questionRepository->pushCriteria(app(QuestionCriteria::class));
 
         return $this->questionRepository->paginate(PAGE_SIZE);
+    }
+
+    public function editInfoUser($data)
+    {
+        return Sentinel::update(Sentinel::getUser(), $data);
+    }
+
+    public function maxPoint()
+    {
+        $max = $this->actionUsersRepository->maxPoint('point');
+        return $this->actionUsersRepository->findWhere(['point' => $max]);
     }
     public function findUser($id)
     {

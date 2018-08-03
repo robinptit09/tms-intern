@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Packages\Repository\Contracts\RepositoryInterface;
 use App\Packages\Repository\Contracts\CriteriaInterface;
 
-class QuestionCriteria implements CriteriaInterface
+class ExamCriteria implements CriteriaInterface
 {
 
     /**
@@ -20,18 +20,22 @@ class QuestionCriteria implements CriteriaInterface
      * @var array
      */
     protected $select = [
-        'id',
-        'idExam',
-        'description',
-        'type',
-        'created_at',
-        'updated_at',
+        'exams.id',
+        'code',
+        'idCourse',
+        'level',
+        'time',
+        'status',
+        'exams.created_at',
+        'exams.updated_at',
     ];
 
-    protected $mainTable = 'questions';
+    protected $mainTable = 'exams';
+
+    protected $questionTable = 'questions';
 
     /**
-     * QuestionCriteria constructor.
+     * ExamCriteria constructor.
      *
      * @param Request $request
      */
@@ -42,24 +46,26 @@ class QuestionCriteria implements CriteriaInterface
 
     public function apply($model, RepositoryInterface $repository)
     {
-
         $options = $this->request->all();
-        $this->request->request->remove('idExam');
+        $this->request->request->remove('ic');
 
         $sorting = [
             'sort' => $this->request->get('sort'),
             'order' => $this->request->get('order')
         ];
-        if ($idExam = array_get($options, 'idExam')) {
-            $model = $model->where($this->mainTable . '.idExam', '=', $idExam);
+        if ($idCourse = array_get($options, 'ic')) {
+            $model = $model->where($this->mainTable . '.idCourse', '=', $idCourse)->where($this->mainTable . '.status','=', 1);
+        }
+        if($search = array_get($options, 'search')){
+            $model = $model->leftJoin($this->questionTable, $this->mainTable.'.id', '=', $this->questionTable.'.idExam')
+            ->where($this->questionTable.'.description', 'like', '%'.$search.'%');
         }
 
         $model = $model->select($this->select);
 
         $mainSortTable = $model->getModel()->getTable();
         $sorting = $repository->setOrder($mainSortTable, $sorting);
-
-        $model = $model->orderBy(array_get($sorting, 'sort'), array_get($sorting, 'order'));
+        $model = $model->orderBy(array_get($sorting, 'sort'), 'asc');
 
 
         return $model;

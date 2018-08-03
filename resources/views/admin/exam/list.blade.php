@@ -11,14 +11,19 @@
                         <small>Danh sách</small>
                     </h1>
                 </div>
-
+                <form class="navbar-form navbar-left" role="search" action="{{ route('exam_list') }}" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Tìm câu hỏi" name="search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
                 @if (session('message'))
                     <div class="alert alert-success col-lg-12">
                         {{session('message')}}
                     </div>
             @endif
             <!-- /.col-lg-12 -->
-                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                <table class="table table-striped table-bordered table-hover">
                     <thead>
                     <tr align="center">
                         <th>ID</th>
@@ -26,6 +31,7 @@
                         <th>Mã đề</th>
                         <th>Số câu hỏi</th>
                         <th>Mức độ</th>
+                        <th>Thời gian (phút)</th>
                         <th>Trạng thái</th>
                         <th>Edit</th>
                         <th>Detail</th>
@@ -33,12 +39,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @php
-                        $count = 1;
-                    @endphp
                     @foreach ($exams as $exam)
                         <tr class="odd gradeX" align="center">
-                            <td>{{ $count }}</td>
+                            <td>{{ $exam->id }}</td>
                             <th>{{ $exam->course->name }}</th>
                             <td>{{ $exam->code }}</td>
                             <td>{{ $exam->question->count() }}</td>
@@ -55,6 +58,7 @@
                                     Khó
                                 @endswitch
                             </td>
+                            <td>{{ $exam->time }}</td>
                             <td>@if ($exam->status === 1)
                                     Public
                                 @else
@@ -65,13 +69,11 @@
                             <td class="center"><i class="fa fa-eye fa-fw"></i> <a href="{{ route('exam_detail', $exam->id) }}">Chi tiết</a></td>
                             <td class="center"><i class="fa fa-trash-o  fa-fw"></i><a onclick="return window.confirm('Bạn muốn xóa?');" href="{{ route('exam_delete', $exam->id) }}"> Xóa</a></td>
                         </tr>
-                        @php
-                            $count++;
-                        @endphp
                     @endforeach
 
                     </tbody>
                 </table>
+                {{ $exams->appends($_GET)->links('helpers.pagination') }}
             </div>
             <!-- /.row -->
         </div>

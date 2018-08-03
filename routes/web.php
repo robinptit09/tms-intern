@@ -18,7 +18,7 @@ Route::group(
     function () {
         // sample new repository type
         Route::get('/posts',
-            ['as' => POST_LIST, 'uses' => 'PostController@show']);
+            ['as' => POST_LIST , 'uses' => 'PostController@show']);
         // end sample
     }
 );
@@ -30,7 +30,7 @@ Route::get('admin/logout', 'Admin\UserController@getLogout')->name('admin_logout
 
 //Route::get('admin/create', 'Admin\UserController@getCreate');
 
-Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
     Route::get('/', 'Admin\UserController@index')->name('index_admin');
     Route::get('index', function () {
         return redirect()->route('index_admin');
@@ -128,6 +128,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     }
     );
 
+    Route::group(['prefix'=>'user'], function () {
+        Route::get('list', ['as' => 'user_listuser' , 'uses' => 'Admin\UserController@getlistuser']);
     Route::group(['prefix' => 'categories'],
     function ()
     {
@@ -136,6 +138,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as' => 'categories.index'
         ]);
 
+        Route::get('create', ['as' => 'user_create' , 'uses' => 'Admin\UserController@getadduser']);
         Route::get('create',[
             'uses' => 'Admin\CategoriesController@create',
             'as' => 'categories.create'
@@ -149,6 +152,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             'as' => 'categories.destroy'
         ]);
 
+        Route::post('store', ['as' => 'user_store' , 'uses' => 'Admin\UserController@store']);
+        Route::get('delete/{id}', ['as' => '' , 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');
+    });
+});
         Route::get('{id}/edit',[
             'uses' => 'Admin\CategoriesController@edit',
             'as' => 'categories.edit'
@@ -174,7 +181,7 @@ Route::post('register', 'Frontend\UserController@postRegister')->name('register'
 
 Route::get('logout', 'Frontend\UserController@getLogout')->name('logout');
 
-Route::group(['middleware' => 'user'], function () {
+Route::group(['middleware' => 'user'], function() {
 
     Route::get('listCourse/{id}', 'Frontend\UserController@getListExams')->name('listCourse');
 
@@ -182,12 +189,17 @@ Route::group(['middleware' => 'user'], function () {
 
     Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
 
+    Route::get('user', 'Frontend\UserController@getInfoUser')->name('user');
 
 //Route::get('views.index', 'UserController');
 //Route::post('views.index', 'UserController');
 
 
+    Route::get('editInfoUser', 'Frontend\UserController@getEditInfoUser')->name('editInfoUser');
 
+    Route::post('editInfoUser', 'Frontend\UserController@postEditInfoUser')->name('editInfoUser');
 });
+
+
 
 Route::get('getCreate','Admin\UserController@getCreate');

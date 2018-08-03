@@ -4,8 +4,13 @@
     <!-- Page Content -->
     <div class="container">
         <div class="row carousel-holder">
-            <div class="col-md-3"></div>
             <div class="col-md-6">
+                <form class="navbar-form navbar-left" role="search" action="{{ route('listCourse',$id) }}" method="GET">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search" name="search">
+                    </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                </form>
                 <table class="table table-condensed">
                     <thead>
                     <tr>
@@ -46,10 +51,34 @@
 
                         </tr>
                     @endforeach
+
+                    </tbody>
+                </table>
+                {{ $exams->appends($_GET)->links('helpers.pagination') }}
+            </div>
+            <div class="col-md-1"></div>
+            <div class="col-md-5"><strong>Top điểm</strong>
+                <table class="table table-condensed">
+                    <thead>
+                    <tr>
+                        <th>Đề thi</th>
+                        <th>Họ Tên</th>
+                        <th>Điểm</th>
+                        <th>Ngày thi</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($maxPoint as $max)
+                        <tr>
+                            <td>{{ $max->exam->code }}</td>
+                            <td>{{ $max->user->first_name }} {{ $max->user->last_name }}</td>
+                            <td>{{ $max->point }}</td>
+                            <td>{{ $max->created_at }}</td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-3"></div>
         </div>
     </div>
     <!-- end Page Content -->

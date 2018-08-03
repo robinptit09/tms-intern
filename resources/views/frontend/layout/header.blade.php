@@ -36,19 +36,19 @@
                 </li>
             </ul>
 
-            <form class="navbar-form navbar-left" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            {{--<form class="navbar-form navbar-left" role="search">--}}
+                {{--<div class="form-group">--}}
+                    {{--<input type="text" class="form-control" placeholder="Search">--}}
+                {{--</div>--}}
+                {{--<button type="submit" class="btn btn-default">Submit</button>--}}
+            {{--</form>--}}
 
             <ul class="nav navbar-nav pull-right">
 
 
                 @if ($user = Sentinel::getUser())
                     <li>
-                        <a href="#"><span class="glyphicon glyphicon-user"></span> {{$user->first_name}}</a>
+                        <a href="{{ route('user') }}"><span class="glyphicon glyphicon-user"></span> {{$user->first_name}}</a>
                     </li>
 
                     <li>

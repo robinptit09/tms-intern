@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Frontend;
 
+use App\Http\Requests\InfoUserRequest;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Http\Request;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use Sentinel;
 
 class UserController extends Controller
 {
@@ -17,49 +19,10 @@ class UserController extends Controller
         $this->userService = $userService;
     }
 
-
-//    public function getLogin()
-//    {
-//        if ($user = $this->userService->checkLogin())
-//        {
-//            return redirect()->route('index_user');
-//        }
-//        else
-//        {
-//            return view('user.login');
-//        }
-//    }
-
     public function getCreate()
     {
         $this->userService->create();
     }
-
-//    public function postLogin(LoginRequest $request)
-//    {
-//        $user = $this->userService->login($request->email, $request->password);
-//        if($user) {
-//            if($user->hasAccess('user')){
-//                return redirect()->route('index_user');
-//            } else {
-//                $this->userService->logout();
-//                session()->flash('message', 'Login failed!');
-//                return redirect()->back();
-//            }
-//        }
-//        else {
-//            session()->flash('message', 'Login failed!');
-//            return redirect()->back();
-//        }
-//
-//    }
-//
-//    public function getLogout()
-//    {
-//        $this->userService->logout();
-//        return view('user.login');
-//    }
-
 
     public function index()
     {
@@ -108,30 +71,48 @@ class UserController extends Controller
         return redirect(route('login'));
     }
 
-    public function getListExams($id)
+    public function getListExams($id, Request $request)
     {
-        $exams = $this->userService->ExamsByCourse($id);
-        $action = $this->userService->checkAction();
-        return view('frontend.pages.listexam', compact('exams', 'action'));
+        $request->request->add(['ic' => $id]);
+        $exams = $this->userService->ExamsByCourse();
+        $action = $this->userService->findAction();
+        $maxPoint = $this->userService->maxPoint();
+        return view('frontend.pages.listexam', compact('exams', 'action','maxPoint','id'));
     }
 
     public function getExam($id, Request $request)
     {
         $exam = $this->userService->findExam($id);
         $request->request->add(['idExam' => $id]);
-        $questions = $this->userService->findQuestionExam($id);
-        return view('frontend.pages.exam', compact('exam','questions'));
+        $questions = $this->userService->findQuestionExam();
+        return view('frontend.pages.exam', compact('exam', 'questions'));
     }
 
     public function postExam(Request $request, $id)
     {
-        if ($request->has('answer')) {
-            $data = $request->answer;
-            $check = $this->userService->checkPoint($data, $id);
-            return view('frontend.pages.result',compact('check'));
-        } else {
-            return redirect()->back();
-        }
+        $data = $request->answer;
+        $check = $this->userService->checkPoint($data, $id);
+        return view('frontend.pages.result', compact('check'));
     }
 
+    public function getInfoUser()
+    {
+        $actions = $this->userService->findAction();
+        return view('frontend.pages.infoUser', compact('actions'));
+    }
+
+    public function getEditInfoUser()
+    {
+        return view('frontend.pages.editInfoUser');
+    }
+
+    public function postEditInfoUser(InfoUserRequest $request)
+    {
+        $data = [
+            'first_name' => $request->first_name,
+            'password' => $request->password
+        ];
+        $user = $this->userService->editInfoUser($data);
+        return redirect()->back()->with('message', 'Thay đổi thông tin thành công!');
+    }
 }

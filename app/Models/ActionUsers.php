@@ -16,7 +16,7 @@ class ActionUsers extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'idUser', 'id');
+        return $this->belongsTo('App\User', 'idUser', 'id');
     }
 
     public function exam()

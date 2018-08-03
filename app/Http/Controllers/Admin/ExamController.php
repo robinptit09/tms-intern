@@ -28,8 +28,8 @@ class ExamController extends Controller
      */
     public function getExamList()
     {
-        $exams = $this->examService->allExam();
-        return view('admin.exam.list', compact('exams','question'));
+        $exams = $this->examService->listExam();
+        return view('admin.exam.list', compact('exams'));
     }
 
     /**
@@ -51,6 +51,7 @@ class ExamController extends Controller
             'idCourse' => $request->idCourse,
             'code' => $request->code,
             'level' => $request->level,
+            'time' => $request->time,
             'status' => $request->status
         ];
 
@@ -80,6 +81,7 @@ class ExamController extends Controller
             'idCourse' => $request->idCourse,
             'code' => $request->code,
             'level' => $request->level,
+            'time' => $request->time,
             'status' => $request->status
         ];
 

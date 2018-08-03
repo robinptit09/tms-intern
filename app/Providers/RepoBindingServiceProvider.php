@@ -31,6 +31,8 @@ class RepoBindingServiceProvider extends ServiceProvider
             'Option',
             'Answer',
             'User',
+            'ActionUsers',
+            'User',
             'News',
             'Category'
         );

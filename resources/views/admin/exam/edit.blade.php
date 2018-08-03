@@ -67,6 +67,10 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label>Thời gian thi (phút)</label>
+                            <input class="form-control" name="time" placeholder="Nhập thời gian" value="{{ $exam->time }}" required="required"/>
+                        </div>
+                        <div class="form-group">
                             <label>Trạng thái</label>
                             <label class="radio-inline">
                                 <input name="status" value="0" type="radio" @if ($exam->status == 0 ) checked="checked" @endif>Private

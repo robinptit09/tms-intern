@@ -21,4 +21,16 @@ class ActionUsersRepository extends BaseRepository implements ActionUsersReposit
     {
         return ActionUsers::class;
     }
+
+
+    public function maxPoint($column)
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+
+        $max = $this->model->max($column);
+        $this->resetModel();
+
+        return $this->parserResult($max);
+    }
 }

@@ -27,6 +27,7 @@ class EditExamRequest extends FormRequest
         return [
             'idCourse' => 'required',
             'code' => ['required',Rule::unique('exams')->ignore($this->id)] ,
+            'time' => 'required|numeric|min:1',
         ];
     }
 
@@ -36,6 +37,9 @@ class EditExamRequest extends FormRequest
             'idCourse.required' => 'Chọn khóa học',
             'code.required' => 'Mã đề không được trống',
             'code.unique' => 'Mã đề đã tồn tại',
+            'time.unique' => 'Chọn thời gian',
+            'time.numeric' => 'Thời gian phải là số',
+            'time.min' => 'Thời gian tối thiểu 1 phút',
         ];
     }
 

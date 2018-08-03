@@ -9,8 +9,7 @@
                 <div class="col-lg-12">
                     <p class="page-header">
                         <small style="color: #0000cc ;font-size: 30px">List User</small>
-                        <a href="{{url('user/create')}}">
-                        <input type="button" name="CreatUser" value="CreatUser" style=" with: 80px ; height: 35px;float: right;color: #FFFFFF ;background-color: #31b131">
+                        <a href="{{url('admin/user/create')}}" class="btn btn-success" style="float: right">Creat User
                         </a>
                     </p>
 
@@ -29,7 +28,7 @@
                         <th>FirstName</th>
                         <th>LastName</th>
                         <th style="text-align: center">Action</th>
-                        <th style="text-align: center">Thông tin chi tiết User</th>
+                        <th style="text-align: center">Thông tin chi tiết</th>
                     </tr>
 
                     </thead>
@@ -40,12 +39,11 @@
                     @foreach ($users as $user)
                         <tr class="odd gradeX" align="center">
                             <td>{{ $count }}</td>
-                            <th>{{ $user->email }}</th>
+                            <th><a href="#">{{ $user->email }}</a></th>
                             <td style="text-align: left">{{ $user->first_name }}</td>
                             <td style="text-align: left">{{ $user->last_name }}</td>
-                            <td class="center"><a href="user/editUser">Edit</a> &nbsp;| &nbsp;<a href="{{route('user_delete',$user->id)}}">Delete</a></td>
-                            <td class="center"><a href="aa">Xem</a> </td>
-
+                            <td class="center"><a href="{{route('user_editUser',[$user->id])}}">Edit</a> &nbsp; @if(!$user->hasAccess('admin'))| <a href="{{route('user_delete',$user->id)}}">Delete</a> @endif </td>
+                            <td style="text-align:center"><a href="{{route('user_viewUser',[$user->id])}}">View</a></td>
 
                         </tr>
                         @php

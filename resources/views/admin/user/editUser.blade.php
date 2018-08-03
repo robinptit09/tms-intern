@@ -30,19 +30,18 @@
                 </div>
                 @endif
 
-                <form action="" method="POST">
+                <form action="{{ route('user_update', [$user->id]) }}" method="POST">
                     {{ csrf_field() }}
                     <div class="form-group">
                         <label>FirstName</label>
-                        <input class="form-control" name="first_name" placeholder="Nhập firstname" value="{{ old('first_name') }}" />
+                        <input class="form-control" name="first_name" placeholder="Nhập firstname" value="{{ $user->first_name }}" />
                         <label>LastName</label>
-                        <input class="form-control" name="last_name" placeholder="Nhập lastname" value="{{ old('last_name') }}" />
+                        <input class="form-control" name="last_name" placeholder="Nhập lastname" value="{{ $user->last_name }}" />
                         <label>Email</label>
-                        <input class="form-control" name="email" placeholder="Nhập email" value="{{ old('email') }}" />
-                        <label>Passsword</label>
-                        <input class="form-control" name="password" placeholder="Nhập password" value="{{ old('password') }}" />
+                        <input class="form-control" name="email" placeholder="Nhập lastname" value="{{ $user->email }}" />
+
                     </div>
-                    <button type="submit" class="btn btn-success">Add</button>
+                    <button type="submit" class="btn btn-success">Edit</button>
 
                 </form>
             </div>

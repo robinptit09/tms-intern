@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Controllers\Admin\User;
 use App\Services\UserService;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UserRequest;
 use DB;
 use Illuminate\Http\Request;
 
@@ -39,7 +40,7 @@ class UserController extends Controller
      */
     public function getCreate()
     {
-        $this->userService->create();
+        return $this->userService->create();
     }
 
     /**
@@ -77,11 +78,11 @@ class UserController extends Controller
     public function getlistuser()
     {
         $users = $this->userService->allUser();
-        return view('user.listuser', compact('users','question'));
+        return view('admin.user.listuser', compact('users','question'));
     }
     public function getadduser()
     {
-        return view('user.adduser');
+        return view('admin.user.adduser');
     }
 
     public function store(Request $request)
@@ -89,18 +90,36 @@ class UserController extends Controller
         $this->userService->addUser($request);
 
     }
-//    public function getEditUser($id)
-//    {
-//        $users = users::find($id);
-//        return view('user.editUser');
-//
-//    }
+    public function editUser(Request $request)
+    {
+        $id = $request->id;
+        $user = $this->userService->findUser($id);
+        return view('admin.user.editUser', compact('user'));
+
+    }
+    public function updateUser(Request $request, $id )
+    {
+        $user = $this->userService->postUserEdit([
+            'first_name' => $request->first_name,
+            'last_name'  => $request->last_name,
+            'email'      => $request->email
+        ],$id);
+        return redirect()->back()->with('message','Sửa thành công!');
+
+    }
 
     public function getUserDelete($id)
-    {
-       $this->userService->getUserDelete($id);
-        return redirect()->back()->with('Xóa thành công!');
+{
+    $this->userService->getUserDelete($id);
+    return redirect()->back()->with('Xóa thành công!');
 
+}
+
+    public function showUser(Request $request)
+    {
+        $id = $request->id;
+        $user = $this->userService->findUser($id);
+        return view('admin.user.viewUser', compact('user'));
     }
 
 }

@@ -7,12 +7,13 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <h1 class="page-header">User
+                    <h1 class="page-header">Danh Mục
                         <small>Sửa</small>
                     </h1>
                 </div>
                 <!-- /.col-lg-12 -->
                 <div class="col-lg-7" style="padding-bottom:120px">
+
                     @if ($errors->any())
                         <div class="alert alert-danger">
                             <ul>
@@ -28,23 +29,16 @@
                             {{session('message')}}
                         </div>
                     @endif
-                    <form action="{{ route('exam_edit', $exam->id) }}" method="POST" enctype="multipart/form-data">
+
+                    <form action="{{ route('categories.update',[$category->id]) }}" method="POST">
                         {{ csrf_field() }}
                         <div class="form-group">
-                            <label>Khóa học</label>
-                            <select class="form-control" name="idCourse" id="">
-                                @foreach ($courses as $course)
-                                    <option
-                                            @if ($course->id === $exam->idCourse)
-                                            selected="selected"
-                                            @endif
-                                            value="{{ $course->id }}">{{ $course->name }}
-                                    </option>
-                                @endforeach
-                            </select>
+                            <label>Tên Danh Mục</label>
+                            <input class="form-control" name="name" placeholder="Nhập tên danh mục" value="{{ empty(old('name')) ? $category->name : old('name') }}" />
                         </div>
-
-
+                        <button type="submit" class="btn btn-success">Thêm</button>
+                        <button type="reset" class="btn btn-info">Làm mới</button>
+                    </form>
                 </div>
             </div>
             <!-- /.row -->
@@ -54,4 +48,3 @@
     <!-- /#page-wrapper -->
 
 @endsection
-

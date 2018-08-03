@@ -27,7 +27,7 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href=""><i class="fa fa fa-book fa-fw"></i> Khóa học<span
+                <a href=""><i class="fa fa-book fa-fw"></i> Khóa học<span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
@@ -40,14 +40,27 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
+                <a href=""><i class="fa fa-tags fa-fw"></i> Danh Mục<span
+                            class="fa arrow"></span></a>
+                <ul class="nav nav-second-level">
+                    <li>
+                        <a href="{{ route('categories.index') }}">Danh sách Danh Mục</a>
+                    </li>
+                    <li>
+                        <a href="{{ route('categories.create') }}">Thêm Danh Mục</a>
+                    </li>
+                </ul>
+                <!-- /.nav-second-level -->
+            </li>
+            <li>
                 <a href=""><i class="fa fa-comments fa-fw"></i> Tin tức<span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="aaaa">Danh sách</a>
+                        <a href="{{route('news.index')}}">Danh sách tin tức</a>
                     </li>
                     <li>
-                        <a href="aaaa">Thêm</a>
+                        <a href="{{ route('news.create') }}">Thêm tin tức</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

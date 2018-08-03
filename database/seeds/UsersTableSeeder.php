@@ -1,16 +1,16 @@
 <?php
-use Illuminate\database\seeds;
+use Illuminate\Database\Seeder;
+
 class UsersTableSeeder extends Seeder
 {
-    public function run()
+     public function run()
     {
         DB::table('users')->trunate();
         App\User::create(
-        [
-            'email'=>'nguyenvanhienptit@gmail.com',
-            'password'=>bcrypt('12345')
-        ]
+            [
+                'email'=>'nguyenvanhienptit@gmail.com',
+                'password'=>bcrypt('12345')
+            ]
         );
     }
-
 }

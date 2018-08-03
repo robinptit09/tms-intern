@@ -33,10 +33,10 @@ class UserService extends BaseService
     public function create()
     {
         return Sentinel::registerAndActivate(array(
-            'email' => 'conan989hd@gmail.com',
+            'email' => 'nguyenvanhienptit11@gmail.com',
             'password' => '123456',
             'permissions' => ['admin' => true],
-            'first_name' => 'Quân',
+            'first_name' => 'Hien',
             'last_name' => 'Nguyễn',
         ));
     }
@@ -62,8 +62,8 @@ class UserService extends BaseService
 
     public function allUser()
     {
-        $list = $this->userRepository->all();
-        return $list;
+        return Sentinel::getUserRepository()->get();
+
     }
 
     public function addUser(Request $request)
@@ -164,5 +164,15 @@ class UserService extends BaseService
 
         return $this->questionRepository->paginate(PAGE_SIZE);
     }
+    public function findUser($id)
+    {
+       return $this->userRepository->find($id);
+    }
+
+    public function postUserEdit($data, $id)
+    {
+        return $this->userRepository->update($data,$id);
+    }
+
 }
 

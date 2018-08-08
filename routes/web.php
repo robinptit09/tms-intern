@@ -89,6 +89,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::post('store', ['as' => 'user_store' , 'uses' => 'Admin\UserController@store']);
         Route::get('delete/{id}', ['as' => '' , 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');
     });
+
+    Route::resource('document', 'Admin\DocumentController');
 });
 
 
@@ -118,6 +120,4 @@ Route::group(['middleware' => 'user'], function() {
 
     Route::post('editInfoUser', 'Frontend\UserController@postEditInfoUser')->name('editInfoUser');
 });
-
-
 

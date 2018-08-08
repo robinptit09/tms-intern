@@ -1,0 +1,93 @@
+Website học trực tuyến và thi trắc nghiệm online
+
+FRONT END
+
+1.	Quản Lí Tài Khoản User
+	1.1  Đăng Nhập, Đăng Kí
+	- Sử dụng Database
+	
+	1.2 Trang Cá Nhân
+	- Thông Tin 
+	- Xem Lại Hoạt Động
+	
+2.  Menu 
+	- Bao gồm : 
+		Khoa học trực tuyến
+		Tin tức
+		Tài liệu
+		Phòng thi online
+		
+3.  Khóa học trực tuyến
+	- Gồm các khóa học theo chủ đề có sẵn user sau khi đăng nhập có thể xem bài giảng trong khóa học.
+		
+
+4.	Tin tức
+	- Thêm xoá, chỉnh sửa bài viết, phân loại theo danh mục.
+	
+5.	Tìm kiếm
+	- Chức năng tìm kiếm dùng để tìm kiếm tin tức hiện có trên website.
+
+6.	Chia sẻ tài liệu	
+	- Tài khoản user sau khi đăng nhập được phép chia sẻ tài liệu lên hệ thống (tài liệu dạng pdf, image)
+	- Khi mới chia sẻ lên tài liệu chưa được mở cho toàn bộ cộng đồng, 
+	admin sẽ là người xác nhận tài liệu có được public lên hệ thống không.
+	
+7.	Phòng thi Online
+	- Tổ chức các bài thi trắc nghiệm online
+	- Chọn trong list các bài thi, hoặc tìm kiếm bài thi có sẵn để thực hiện thi online.
+	- Trong thời gian làm bài có hiện thi đồng hồ đếm ngược, hết thời gian bài thi được đánh dấu hết hạn và đã thi.
+	- Sau khi thi xong hiển thị điểm số và đánh giá xếp hạng. 
+	Vẫn có thể làm lại bài thi bình thường, nhưng khi hiển thị trên list có ký hiệu là đã thi.
+	
+8. Home page 
+	- Là trang tổng hợp bao gồm các slide của các mục trên.	
+	
+
+
+------------------------------------------------------------------------------------------------------------------------------------------
+BACK END (Admin)
+
+- Có thể sử dụng theme có sẵn
+- Menu bao gồm : 
+	Quản lý user
+	Quản lý khóa học
+	Quản lý tin tức
+	Quản lý chia sẻ tài liệu
+	
+
+1. Chức năng quản lý user
+	- Danh sách, thêm, sửa, xóa, chi tiết user.
+	- Trong màn hinh chi tiết user
+		Thông tin cơ bản 
+		Danh sách các hoạt động
+	
+2. Quản lý khóa học
+	Khóa học sẽ gồm nhiều bài giảng theo hình thức side hoặc video.
+	- Danh sách, Thêm, sửa, xóa, chi tiết khóa học.
+	- Trong màn hinh chi tiết khóa học
+		Thông tin cơ bản.
+		Danh sách các hoạt động.
+
+3. Quản lý tin tức
+	- Danh sách, Thêm, sửa, xóa, chi tiết tin tức.
+
+4. Quản lý chia sẻ tài liệu
+	- Danh sách tài liệu.
+	- Review, Xóa tài liệu.
+	- Thêm, sửa thông tin tài liệu.
+	
+5. Quản lý bài thi online (chức năng quan trọng nhất)
+	- Thêm mới, sửa bài thi
+		Khi vào màn hình này admin sẽ tạo từng câu hỏi theo định dạng trắc nghiệm bào gồm
+		- Câu hỏi
+		- Câu trả lời: Được chọn dạng : select, checkbox, radio button, text field.
+	- Một bài thi được chọn giới hạn câu hỏi, thời gian, độ khó.
+	- Khi tạo mới hoàn thành đề thi chưa được public, admin xác nhận công khai đề thi mới được public trên front end
+		
+	- Danh sách, xóa, review(chi tiết bài thi).	
+		
+Note: 	- Các chức năng thêm sửa cần có validate sử dụng request của laravel hoặc js.
+		- Các chức năng xóa hiển thị trên trang list và chi tiết.	
+		
+		
+		

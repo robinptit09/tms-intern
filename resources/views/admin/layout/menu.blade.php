@@ -44,23 +44,23 @@
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="aaaa">Danh sách</a>
+                        <a href="#">Danh sách</a>
                     </li>
                     <li>
-                        <a href="aaaa">Thêm</a>
+                        <a href="#">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href=""><i class="fa fa-sliders fa-fw"></i> Chia sẻ tài liệu<span
+                <a href=""><i class="fa fa-sliders fa-fw"></i> Tài liệu<span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>
-                        <a href="aaaa">Danh sách</a>
+                        <a href="{{  route('document.index') }}">Danh sách</a>
                     </li>
                     <li>
-                        <a href="aaaa">Thêm</a>
+                        <a href="{{  route('document.create') }}">Thêm</a>
                     </li>
                 </ul>
                 <!-- /.nav-second-level -->

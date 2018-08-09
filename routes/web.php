@@ -89,103 +89,110 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
             Route::post('store', ['as' => 'user_store', 'uses' => 'Admin\UserController@store']);
             Route::get('delete/{id}', ['as' => '', 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');;
 
-            Route::get('edit/{id}', ['as' => 'user_editUser' , 'uses' => 'Admin\UserController@editUser']);
+            Route::get('edit/{id}', ['as' => 'user_editUser', 'uses' => 'Admin\UserController@editUser']);
 
-            Route::post('update/{id}', ['as' => 'user_update' , 'uses' => 'Admin\UserController@updateUser']);
+            Route::post('update/{id}', ['as' => 'user_update', 'uses' => 'Admin\UserController@updateUser']);
 
-            Route::get('view/{id}',['as'=>'user_viewUser','uses'=>'Admin\UserController@showUser']);
+            Route::get('view/{id}', ['as' => 'user_viewUser', 'uses' => 'Admin\UserController@showUser']);
 
-       });
+        });
     Route::group(['prefix' => 'news'],
-    function () {
-        Route::get('', [
-            'uses' => 'Admin\NewController@index',
-            'as' => 'news.index'
-        ]);
-        Route::get('create', [
-            'uses' => 'Admin\NewController@create',
-            'as' => 'news.create'
-        ]);
-        Route::post('store', [
-            'uses' => 'Admin\NewController@store',
-            'as' => 'news.store'
-        ]);
+        function () {
+            Route::get('', [
+                'uses' => 'Admin\NewController@index',
+                'as' => 'news.index'
+            ]);
+            Route::get('create', [
+                'uses' => 'Admin\NewController@create',
+                'as' => 'news.create'
+            ]);
+            Route::post('store', [
+                'uses' => 'Admin\NewController@store',
+                'as' => 'news.store'
+            ]);
 
-        Route::get('{id}',[
-            'uses' => 'Admin\NewController@editNews',
-            'as' => 'news.edit'
-        ]);
-        Route::post('news/{id}',[
-            'uses' => 'Admin\NewController@updateNews',
-            'as' => 'news.update'
-        ]);
+            Route::get('{id}', [
+                'uses' => 'Admin\NewController@editNews',
+                'as' => 'news.edit'
+            ]);
+            Route::post('news/{id}', [
+                'uses' => 'Admin\NewController@updateNews',
+                'as' => 'news.update'
+            ]);
 
-        Route::get('delete/{id}',[
-            'uses' => 'Admin\NewController@deleteNews',
-            'as' => 'news.destroy'
-        ]);
-        //Route::get('delete/{id}', ['as' => '', 'uses' => 'Admin\NewController@getDeleteTintuc'])->name('tintuc_delete');;
-    }
+            Route::get('delete/{id}', [
+                'uses' => 'Admin\NewController@deleteNews',
+                'as' => 'news.destroy'
+            ]);
+            //Route::get('delete/{id}', ['as' => '', 'uses' => 'Admin\NewController@getDeleteTintuc'])->name('tintuc_delete');;
+        }
     );
 
-    Route::group(['prefix'=>'user'], function () {
-        Route::get('list', ['as' => 'user_listuser' , 'uses' => 'Admin\UserController@getlistuser']);
-    Route::group(['prefix' => 'categories'],
-    function ()
-    {
-        Route::get('',[
-            'uses' => 'Admin\CategoriesController@index',
-            'as' => 'categories.index'
-        ]);
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('list', ['as' => 'user_listuser', 'uses' => 'Admin\UserController@getlistuser']);
+        Route::group(['prefix' => 'categories'],
+            function () {
+                Route::get('', [
+                    'uses' => 'Admin\CategoriesController@index',
+                    'as' => 'categories.index'
+                ]);
 
-        Route::get('create', ['as' => 'user_create' , 'uses' => 'Admin\UserController@getadduser']);
-        Route::get('create',[
-            'uses' => 'Admin\CategoriesController@create',
-            'as' => 'categories.create'
-        ]);
-        Route::post('',[
-            'uses' => 'Admin\CategoriesController@store',
-            'as' => 'categories.store'
-        ]);
-        Route::get('delete/{id}',[
-            'uses' => 'Admin\CategoriesController@destroy',
-            'as' => 'categories.destroy'
-        ]);
+                Route::get('create', ['as' => 'user_create', 'uses' => 'Admin\UserController@getadduser']);
+                Route::get('create', [
+                    'uses' => 'Admin\CategoriesController@create',
+                    'as' => 'categories.create'
+                ]);
+                Route::post('', [
+                    'uses' => 'Admin\CategoriesController@store',
+                    'as' => 'categories.store'
+                ]);
+                Route::get('delete/{id}', [
+                    'uses' => 'Admin\CategoriesController@destroy',
+                    'as' => 'categories.destroy'
+                ]);
 
-        Route::post('store', ['as' => 'user_store' , 'uses' => 'Admin\UserController@store']);
-        Route::get('delete/{id}', ['as' => '' , 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');
+                Route::post('store', ['as' => 'user_store', 'uses' => 'Admin\UserController@store']);
+                Route::get('delete/{id}', ['as' => '', 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');
+            });
+
+        Route::resource('document', 'Admin\DocumentController');
     });
 
-    Route::resource('document', 'Admin\DocumentController');
 });
 
+    Route::get('/', 'Frontend\UserController@index')->name('index');
 
-Route::get('/', 'Frontend\UserController@index')->name('index');
+    Route::get('login', 'Frontend\UserController@getLogin')->name('login');
 
-Route::get('login', 'Frontend\UserController@getLogin')->name('login');
+    Route::post('login', 'Frontend\UserController@postLogin')->name('login');
 
-Route::post('login', 'Frontend\UserController@postLogin')->name('login');
+    Route::get('register', 'Frontend\UserController@getRegister')->name('register');
 
-Route::get('register', 'Frontend\UserController@getRegister')->name('register');
+    Route::post('register', 'Frontend\UserController@postRegister')->name('register');
 
-Route::post('register', 'Frontend\UserController@postRegister')->name('register');
+    Route::get('logout', 'Frontend\UserController@getLogout')->name('logout');
 
-Route::get('logout', 'Frontend\UserController@getLogout')->name('logout');
+    Route::group(['middleware' => 'user'],
+        function () {
 
-Route::group(['middleware' => 'user'], function() {
+        Route::get('listCourse/{id}', 'Frontend\UserController@getListExams')->name('listCourse');
 
-    Route::get('listCourse/{id}', 'Frontend\UserController@getListExams')->name('listCourse');
+        Route::get('exam/{id}', 'Frontend\UserController@getExam')->name('exam');
 
-    Route::get('exam/{id}', 'Frontend\UserController@getExam')->name('exam');
+        Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
 
-    Route::post('exam/{id}', 'Frontend\UserController@postExam')->name('exam');
+        Route::get('user', 'Frontend\UserController@getInfoUser')->name('user');
 
-    Route::get('user', 'Frontend\UserController@getInfoUser')->name('user');
+        Route::get('editInfoUser', 'Frontend\UserController@getEditInfoUser')->name('editInfoUser');
 
-    Route::get('editInfoUser', 'Frontend\UserController@getEditInfoUser')->name('editInfoUser');
+        Route::post('editInfoUser', 'Frontend\UserController@postEditInfoUser')->name('editInfoUser');
 
-    Route::post('editInfoUser', 'Frontend\UserController@postEditInfoUser')->name('editInfoUser');
-});
+    });
+Route::get('new', [
+    'as' => 'news',
+    'uses' => 'Frontend\NewController@index'
+
+]);
 
 
 

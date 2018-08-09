@@ -155,18 +155,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function() {
         Route::post('store', ['as' => 'user_store' , 'uses' => 'Admin\UserController@store']);
         Route::get('delete/{id}', ['as' => '' , 'uses' => 'Admin\UserController@getUserDelete'])->name('user_delete');
     });
+
+    Route::resource('document', 'Admin\DocumentController');
 });
-        Route::get('{id}/edit',[
-            'uses' => 'Admin\CategoriesController@edit',
-            'as' => 'categories.edit'
-        ]);
-        Route::post('categories/{id}',[
-            'uses' => 'Admin\CategoriesController@update',
-            'as' => 'categories.update'
-        ]);
-    });
-
-
 
 
 Route::get('/', 'Frontend\UserController@index')->name('index');
@@ -191,10 +182,6 @@ Route::group(['middleware' => 'user'], function() {
 
     Route::get('user', 'Frontend\UserController@getInfoUser')->name('user');
 
-//Route::get('views.index', 'UserController');
-//Route::post('views.index', 'UserController');
-
-
     Route::get('editInfoUser', 'Frontend\UserController@getEditInfoUser')->name('editInfoUser');
 
     Route::post('editInfoUser', 'Frontend\UserController@postEditInfoUser')->name('editInfoUser');
@@ -202,9 +189,3 @@ Route::group(['middleware' => 'user'], function() {
 
 
 
-Route::get('getCreate','Admin\UserController@getCreate');
-
-Route::get('new',
-    ['as' => 'news',
-    'uses' => 'Frontend\NewController@index'
-    ]);

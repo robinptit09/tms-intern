@@ -27,7 +27,7 @@
                 <!-- /.nav-second-level -->
             </li>
             <li>
-                <a href=""><i class="fa fa-book fa-fw"></i> Khóa học<span
+                <a href=""><i class="fa fa fa-book fa-fw"></i> Khóa học<span
                             class="fa arrow"></span></a>
                 <ul class="nav nav-second-level">
                     <li>

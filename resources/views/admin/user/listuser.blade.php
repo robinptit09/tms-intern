@@ -42,7 +42,7 @@
                             <th><a href="#">{{ $user->email }}</a></th>
                             <td style="text-align: left">{{ $user->first_name }}</td>
                             <td style="text-align: left">{{ $user->last_name }}</td>
-                            <td class="center"><a href="{{route('user_editUser',[$user->id])}}">Edit</a> &nbsp; @if(!$user->hasAccess('admin'))| <a href="{{route('user_delete',$user->id)}}">Delete</a> @endif </td>
+                            <td class="center"><a href="{{route('user_editUser',[$user->id])}}">Edit</a> &nbsp;| <a href="{{route('user_delete',$user->id)}}">Delete</a> </td>
                             <td style="text-align:center"><a href="{{route('user_viewUser',[$user->id])}}">View</a></td>
 
                         </tr>

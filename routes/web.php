@@ -203,3 +203,8 @@ Route::group(['middleware' => 'user'], function() {
 
 
 Route::get('getCreate','Admin\UserController@getCreate');
+
+Route::get('new',
+    ['as' => 'news',
+    'uses' => 'Frontend\NewController@index'
+    ]);

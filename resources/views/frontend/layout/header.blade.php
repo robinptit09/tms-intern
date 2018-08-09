@@ -23,7 +23,7 @@
                         @endforeach
                     </ul>
                 </li>
-                <li><a href="#">Tin Tức</a></li>
+                <li><a href="{{route('news')}}">Tin Tức</a></li>
                 <li><a href="#">Tài Liệu</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Thi Online

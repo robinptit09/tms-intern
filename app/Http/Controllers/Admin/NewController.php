@@ -46,24 +46,25 @@ class NewController extends Controller
 
     public function store(Request $request)
     {
-
+     // dd($request);
         $this->newsService->addNews($request);
         return redirect()->back()->with('mes','thêm mới thành công');
     }
     public function editNews(Request $request)
     {
-
+        $categories = $this->categoryService->getCategory();
         $id = $request->id;
         $news = $this->newsService->editNews($id);
-        return view('admin.news.edit', compact('news'));
+        return view('admin.news.edit',['categories' =>$categories], compact('news'));
 
     }
     public function updateNews(Request $request, $id )
     {
         //dd($request);
         $news = $this->newsService->postEditNews([
-            //'category_id' => $request->category_id,
+
             'title'  => $request->get('title'),
+            'category_id' => $request->category_id,
             'content'  => $request->get('content')
         ],$id);
         return redirect()->back()->with('message','Sửa thành công!');

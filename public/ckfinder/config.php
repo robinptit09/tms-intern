@@ -20,7 +20,8 @@ ini_set('display_errors', 0);
 /*============================ General Settings =======================================*/
 // https://docs.ckeditor.com/ckfinder/ckfinder3-php/configuration.html
 
-$config = array();
+$config = array('disabled'=>false,
+'baseUrl'      => '/../userfiles/');
 
 /*============================ Enable PHP Connector HERE ==============================*/
 // https://docs.ckeditor.com/ckfinder/ckfinder3-php/configuration.html#configuration_options_authentication

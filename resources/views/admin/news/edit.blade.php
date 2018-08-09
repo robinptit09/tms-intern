@@ -35,6 +35,12 @@
                         <div class="form-group">
                             <label>Sửa thông tin</label>
                             <input class="form-control" name="title" placeholder="sửa tiêu đề"  value="{{ $news->title }}" />
+                            <label>Category</label>
+                            <select class="form-control" id="caregory_id" name="category_id">
+                                @foreach($categories as $category)
+                                    <option value="{{$category->id}}">{{$category->name}} </option>
+                                @endforeach
+                            </select>
 
                             <label>Nội Dung Bài Viết</label>
                             <textarea  class="form-control" name="content" id="editor1">{{ empty(old('content')) ? $news->content : old('content') }} </textarea>

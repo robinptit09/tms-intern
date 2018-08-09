@@ -46,11 +46,11 @@
                         </div>
                         <div class="form-group">
                             <label>Nội Dung Bài Viết</label>
-                            <textarea class="fotent" id="editor1">{{ old('content') }}</textarea>
+                            <textarea class="fotent" id="editor1" name="content">{{ old('content') }}</textarea>
 
 
                         </div>
-                        <button type="submit" class="btn btn-success">Thêm</button>rm-control" name="con
+                        <button type="submit" class="btn btn-success">Thêm</button>
 
                     </form>
                 </div>
